@@ -25,7 +25,7 @@ export default function LoginPage() {
             ...data,
             redirect: false,
         })
-
+        
         if (!signinResponse || signinResponse.error) {
             setShowErrorToast(true)
             return

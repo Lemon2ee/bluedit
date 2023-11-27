@@ -1,4 +1,4 @@
-import {NextAuthOptions} from "next-auth";
+import {AuthOptions, NextAuthOptions} from "next-auth";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import {PrismaClient} from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
                         return null;
                     }
 
-                    const passwordMatch = bcrypt.compare(password, user.password);
+                    const passwordMatch = await bcrypt.compare(password, user.password);
 
                     if (!passwordMatch) {
                         return null;
@@ -46,9 +46,7 @@ export const authOptions: NextAuthOptions = {
                     if (!user.name) {
                         user.name = user.username;
                     }
-
-                    console.log(user);
-
+                    
                     return user;
                 }
             }
