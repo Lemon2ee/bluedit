@@ -3,25 +3,14 @@
 import Image from 'next/image'
 import logo from 'app/img/logo.png'
 import {useRouter} from "next/navigation";
-import React from "react";
+import React, {useState} from "react";
+import {errorToast} from "@/app/login/components";
 
 
-/*
- This example requires some changes to your config:
-
- ```
- // tailwind.config.js
- module.exports = {
- // ...
- plugins: [
- // ...
- require('@tailwindcss/forms'),
- ],
- }
- ```
- */
 export default function RegisterPage() {
     const router = useRouter();
+    const [showErrorToast, setShowErrorToast] = useState(false)
+    const [errorMessages, setErrorMessages] = useState<string>("")
     const [data, setData] = React.useState(
         {
             username: '',
@@ -40,7 +29,11 @@ export default function RegisterPage() {
                 body: JSON.stringify(data),
             })
             const json = await res.json()
-            console.log(json)
+            if (json.message) {
+                setErrorMessages(json.message)
+                setShowErrorToast(true)
+                return
+            }
             router.push('/login')
 
         } catch (e) {
@@ -52,6 +45,9 @@ export default function RegisterPage() {
 
     return (
         <>
+            {showErrorToast && (
+                errorToast(errorMessages)
+            )}
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Image src={logo} alt="me" width="140" height="140" className={'mx-auto'}/>

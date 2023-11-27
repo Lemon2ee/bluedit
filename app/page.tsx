@@ -8,7 +8,6 @@ import {useRouter} from "next/navigation";
 export default function Home() {
     const {data: session} = useSession();
     const router = useRouter();
-    console.log(session)
 
     return (
         <div className='grid grid-cols-2 text-white p-4'>

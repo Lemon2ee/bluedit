@@ -2,14 +2,16 @@
 
 import Image from "next/image";
 import logo from "app/img/logo.png";
-import React from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";
 import Link from 'next/link'
+import {errorToast} from "@/app/login/components";
 
 
 export default function LoginPage() {
     const router = useRouter();
+    const [showErrorToast, setShowErrorToast] = useState(false)
     const [data, setData] = React.useState(
         {
             username: '',
@@ -25,21 +27,17 @@ export default function LoginPage() {
         })
 
         if (!signinResponse || signinResponse.error) {
-
+            setShowErrorToast(true)
+            return
         }
         router.push('/')
     }
 
     return (
         <>
-            {/*
-             This example requires updating your template:
-
-             ```
-             <html class="h-full bg-white">
-             <body class="h-full">
-             ```
-             */}
+            {showErrorToast && (
+                errorToast("Login failed, Please check your credentials and try again.")
+            )}
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                     <Image src={logo} alt="me" width="140" height="140" className={'mx-auto'}/>
