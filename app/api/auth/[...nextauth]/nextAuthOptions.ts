@@ -1,4 +1,4 @@
-import {AuthOptions, NextAuthOptions} from "next-auth";
+import {NextAuthOptions} from "next-auth";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import {PrismaClient} from "@prisma/client";
 import CredentialsProvider from "next-auth/providers/credentials";
