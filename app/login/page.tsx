@@ -1,7 +1,8 @@
 'use client'
 
 import Image from "next/image";
-import logo from "app/img/logo.png";
+// @ts-ignore
+import logo from 'app/img/logo.png';
 import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {signIn} from "next-auth/react";

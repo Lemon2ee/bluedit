@@ -9,6 +9,7 @@ First, set the `.env` file:
 |-----------------|------------------------------|
 | DATABASE_URL    | Your mongo db connection url |
 | NEXTAUTH_SECRET | Any text                     |
+| NEXTAUTH_URL    | Your project URL             |
 
 Then, run the development server:
 
