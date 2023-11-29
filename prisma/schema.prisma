@@ -52,7 +52,7 @@ model Post {
   title     String
   content   String
   published Boolean   @default(false)
-  author    User      @relation(fields: [authorId], references: [id])
+  author    User      @relation(fields: [authorId], references: [id] , onDelete: Cascade, onUpdate: Cascade)
   authorId  String    @db.ObjectId
   comments  Comment[]
 }
@@ -61,8 +61,8 @@ model Comment {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   content   String
   createdAt DateTime @default(now())
-  author    User     @relation(fields: [authorId], references: [id])
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId  String   @db.ObjectId
-  post      Post     @relation(fields: [postId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   postId    String   @db.ObjectId
 }
