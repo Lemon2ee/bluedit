@@ -7,33 +7,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Account {
-  id                String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId            String  @db.ObjectId
-  type              String
-  provider          String
-  providerAccountId String
-  refresh_token     String?
-  access_token      String?
-  expires_at        Int?
-  token_type        String?
-  scope             String?
-  id_token          String? @db.String
-  session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  sessionToken String   @unique
-  userId       String   @db.ObjectId
-  expires      DateTime
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
 model User {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   name     String?
@@ -41,10 +14,20 @@ model User {
   password String
   role     Role      @default(USER)
   image    String
-  accounts Account[]
-  sessions Session[]
   posts    Post[]
   comments Comment[]
+  Profile  Profile?
+}
+
+model Profile {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  bio            String
+  profilePicture String
+  firstName      String
+  lastName       String
+  country        String
+  user           User   @relation(fields: [userId], references: [id])
+  userId         String @unique @db.ObjectId
 }
 
 model Post {
@@ -53,7 +36,7 @@ model Post {
   title     String
   content   String
   published Boolean   @default(false)
-  author    User      @relation(fields: [authorId], references: [id] , onDelete: Cascade, onUpdate: Cascade)
+  author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId  String    @db.ObjectId
   comments  Comment[]
 }

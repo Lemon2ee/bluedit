@@ -164,7 +164,7 @@ export default function Navbar() {
                                     <Disclosure.Button
                                         key={item.name}
                                         as="a"
-                                        href={item.href || "#"}
+                                        href={item['href'] || "#"}
                                         onClick={item.action || (() => {
                                         })}
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
