@@ -62,10 +62,10 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, setContent }) => {
                 className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0 focus:outline-none py-3"
                 placeholder="Title"
             />
-            <div >
+
                 <ReactQuill
                     theme="snow"
-                    className={"bg-white border-0 focus:outline-none"}
+                    className={"block bg-white w-full resize-none border-0 py-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6focus:outline-none"}
                     style={{ height: '500px', width:'100%'}}
                     formats={formats}
                     modules={modules}
@@ -75,7 +75,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, setContent }) => {
                     defaultValue={''}
 
                 />
-            </div>
+
 
 
         </div>
