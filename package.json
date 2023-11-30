@@ -29,6 +29,8 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
     "@jest/globals": "^29.7.0",
     "@types/bcrypt": "^5.0.2",
     "@types/jest": "^29.5.10",
