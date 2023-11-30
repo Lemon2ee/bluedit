@@ -33,7 +33,8 @@ export async function POST(req: Request) {
         {
             data: {
                 username: username,
-                password: hashedPassword
+                password: hashedPassword,
+                image: "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg"
             }
         }
     )
