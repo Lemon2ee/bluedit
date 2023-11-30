@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
+package-lock.json
 
 # testing
 /coverage
@@ -38,4 +39,6 @@ next-env.d.ts
 
 # idea
 .idea/
+
+
 
