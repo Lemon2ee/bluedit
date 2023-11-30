@@ -1,10 +1,11 @@
 import {Fragment} from 'react'
+import logo from 'app/img/logo.png'
 import {Disclosure, Menu, Transition} from '@headlessui/react'
 import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
-import {Bars3Icon, BellIcon, XMarkIcon} from '@heroicons/react/24/outline'
+import {Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
-import {useRouter} from "next/navigation";
+import Image from "next/image";
 
 const userNavigation = [
     {
@@ -34,11 +35,13 @@ export default function Navbar() {
                         <div className="relative flex h-16 justify-between">
                             <div className="relative z-10 flex px-2 lg:px-0">
                                 <div className="flex flex-shrink-0 items-center">
-                                    <img
-                                        className="block h-8 w-auto"
-                                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                                        alt="Your Company"
-                                    />
+                                    <Link href={"/"}>
+                                        <Image
+                                            className="block h-10 w-auto"
+                                            src={logo}
+                                            alt="Bluedit"
+                                        />
+                                    </Link>
                                 </div>
                             </div>
                             <div
@@ -162,7 +165,8 @@ export default function Navbar() {
                                         key={item.name}
                                         as="a"
                                         href={item.href || "#"}
-                                        onClick={item.action || (() => {})}
+                                        onClick={item.action || (() => {
+                                        })}
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                     >
                                         {item.name}
