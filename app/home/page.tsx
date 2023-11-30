@@ -1,6 +1,6 @@
 'use client'
 
-import Navbar from "@/app/home/navbar";
+import Navbar from "@/shared/navbar";
 
 export default function Home() {
     return (
