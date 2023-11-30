@@ -10,13 +10,13 @@ const state = [
     {name: 'Public', value: true},
 ]
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
 export default function CreatePost() {
     const [isPublic, setisPublic] = useState(state[0])
-    const [content, setContent] = useState('');
+    const [content, setContent] = useState<string>('');
     const DynamicTextEditor = useMemo(() => {
 
         return dynamic(() => import("@/app/createPost/textEditor"), {
@@ -27,7 +27,7 @@ export default function CreatePost() {
 
         });
     }, []);
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: { preventDefault: () => void; }) => {
         event.preventDefault();
         console.log(content); // Process the content here
     };

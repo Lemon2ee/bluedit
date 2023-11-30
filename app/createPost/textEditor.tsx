@@ -1,40 +1,13 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
 import { useCallback, useMemo, useRef, useState } from "react";
 
+interface TextEditorProps {
+    content: string;
+    setContent: (content: string) => void;
+}
+const TextEditor: React.FC<TextEditorProps> = ({ content, setContent }) => {
 
-export default function TextEditor({content, setContent}){
-
-
-    // Editor ref
-    const quill = useRef();
-
-    const imageHandler = useCallback(() => {
-        // Create an input element of type 'file'
-        const input = document.createElement("input");
-        input.setAttribute("type", "file");
-        input.setAttribute("accept", "image/*");
-        input.click();
-
-        // When a file is selected
-        input.onchange = () => {
-            const file = input.files[0];
-            const reader = new FileReader();
-
-            // Read the selected file as a data URL
-            reader.onload = () => {
-                const imageUrl = reader.result;
-                const quillEditor = quill.current.getEditor();
-
-                // Get the current selection range and insert the image at that index
-                const range = quillEditor.getSelection(true);
-                quillEditor.insertEmbed(range.index, "image", imageUrl, "user");
-            };
-
-            reader.readAsDataURL(file);
-        };
-    }, []);
 
     const modules = useMemo(
         () => ({
@@ -49,18 +22,15 @@ export default function TextEditor({content, setContent}){
                         { indent: "-1" },
                         { indent: "+1" },
                     ],
-                    ["link", "image"],
+                    ["link","image"],
                     ["clean"],
                 ],
-                handlers: {
-                    image: imageHandler,
-                },
             },
             clipboard: {
                 matchVisual: true,
             },
         }),
-        [imageHandler]
+        []
     );
 
     const formats = [
@@ -92,20 +62,23 @@ export default function TextEditor({content, setContent}){
                 className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0 focus:outline-none py-3"
                 placeholder="Title"
             />
-
+            <div >
                 <ReactQuill
-
+                    theme="snow"
+                    className={"bg-white border-0 focus:outline-none"}
+                    style={{ height: '500px', width:'100%'}}
                     formats={formats}
                     modules={modules}
                     value={content}
                     onChange={(c) => setContent(c)}
                     placeholder="Write a description..."
-                    theme="snow"
                     defaultValue={''}
 
                 />
+            </div>
 
 
         </div>
     );
 }
+export default TextEditor;
