@@ -30,19 +30,19 @@ export default function SearchResultList() {
     // 2. Get Profile data for each post: img
     return (
         <ul role="list" className="divide-y divide-gray-100">
-            {posts.map((person) => (
-                <li key={person.shortContent} className="relative flex justify-between gap-x-6 py-5">
+            {posts.map((post) => (
+                <li key={post.shortContent} className="relative flex justify-between gap-x-6 py-5">
                     <div className="flex gap-x-4">
-                        <img className="h-12 w-12 flex-none rounded-full bg-gray-50 mx-4" src={person.imageUrl} alt="" />
+                        <img className="h-12 w-12 flex-none rounded-full bg-gray-50 mx-4" src={post.imageUrl} alt="" />
                         <div className="min-w-0 flex-auto">
-                            <p className="text-sm font-semibold leading-6 text-gray-900">
-                                <a href={person.href}>
+                            <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                                <a href={post.href}>
                                     <span className="absolute inset-x-0 -top-px bottom-0" />
-                                    {person.title}
+                                    {post.title}
                                 </a>
                             </p>
                             <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                {person.shortContent}
+                                {post.shortContent}
                             </p>
                         </div>
                     </div>
