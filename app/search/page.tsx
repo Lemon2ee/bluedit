@@ -13,8 +13,9 @@ export default function SearchResult() {
     const router = useRouter();
 
     return (
-        <div className={"flex justify-center"}>
-            <SearchHeader/>
+        <div className={"flex justify-center flex-col"}>
+            <div className="row"><SearchHeader/></div>
+            <div className="row"><SearchResultList/></div>
         </div>
     )
 

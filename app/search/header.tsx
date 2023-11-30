@@ -11,6 +11,8 @@ function classNames(...classes: string[]) {
 }
 
 export default function SearchHeader() {
+    // Unfinished work:
+    // 1. Get username and image from DB
     return (
         <Disclosure as="nav" className="bg-white shadow ag-full-width-row w-full">
             {({ open }) => (
@@ -18,7 +20,7 @@ export default function SearchHeader() {
                     <div className="mx-auto dark:bg-black">
                         <div className="flex h-16 justify-between">
                             <div className="flex px-2 lg:px-0">
-                                <div className="flex flex-shrink-0 items-center">
+                                <div className="flex flex-shrink-0 items-center dark:text-white">
                                     <Image src={logo} alt="me" width="80" height="80" className={'mx-auto'}/>
                                 </div>
                                 <div className="hidden lg:ml-6 lg:flex lg:space-x-8">
@@ -74,6 +76,8 @@ export default function SearchHeader() {
                                 </Disclosure.Button>
                             </div>
                             <div className="hidden lg:ml-4 lg:flex lg:items-center">
+                                {/*Fetch From API in future*/}
+                                Test User
                                 <Link
                                 href={"#"}
                                 title={"View Profile"}>
