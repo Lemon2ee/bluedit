@@ -19,7 +19,7 @@ export default function CreatePost() {
     const [content, setContent] = useState<string>('');
     const DynamicTextEditor = useMemo(() => {
 
-        return dynamic(() => import("@/app/createPost/textEditor"), {
+        return dynamic(() => import("@/app/post/[username]/creatPost/textEditor"), {
 
             loading: () => <p>loading...</p>,
 
