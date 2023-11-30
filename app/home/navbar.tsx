@@ -4,19 +4,12 @@ import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {Bars3Icon, BellIcon, XMarkIcon} from '@heroicons/react/24/outline'
 import {signOut, useSession} from "next-auth/react";
 import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 const userNavigation = [
     {
         name: 'Your Profile',
-        action: () => {
-            console.log("profile");
-        }
-    },
-    {
-        name: 'Settings',
-        action: () => {
-            console.log("");
-        }
+        href: "/profile",
     },
     {
         name: 'Sign out',
@@ -168,8 +161,8 @@ export default function Navbar() {
                                     <Disclosure.Button
                                         key={item.name}
                                         as="a"
-                                        href={"#"}
-                                        onClick={item.action}
+                                        href={item.href || "#"}
+                                        onClick={item.action || (() => {})}
                                         className="block rounded-md px-3 py-2 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                                     >
                                         {item.name}
