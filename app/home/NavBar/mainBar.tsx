@@ -5,9 +5,10 @@ import logo from "app/img/logo.png";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
+import { Session } from "next-auth";
 
 const userNavigation = [
   {
@@ -28,9 +29,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
-  const { data: session } = useSession();
-
+export default function MainBar({ session }: { session: Session }) {
   return (
     <Disclosure as="header" className="bg-white shadow">
       {({ open }) => (

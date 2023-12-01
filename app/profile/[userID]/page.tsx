@@ -1,4 +1,4 @@
-import Navbar from "@/app/home/navbar";
+import Navbar from "@/app/home/NavBar/navbar";
 import Header from "@/app/profile/header";
 
 export default async function PublicProfile({
