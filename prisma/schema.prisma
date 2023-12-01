@@ -12,7 +12,7 @@ model User {
   username String?   @unique
   password String
   role     Role      @default(USER)
-  image    String
+  image    String?
   posts    Thread[]
   comments Comment[]
   profile  Profile?
