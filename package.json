@@ -29,7 +29,7 @@
     "next": "^14.0.3",
     "next-auth": "^4.24.5",
     "next-s3-upload": "^0.3.4",
-    "sharp": "^0.33.0"
+    "sharp": "^0.33.0",
     "quill": "^1.3.7",
     "react": "^18",
     "react-dom": "^18",
