@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { Role } from "@prisma/client";
 import { ProfileData } from "@/lib/type";
 
 export async function GET(
-  req: NextRequest,
+  _req: Request,
   {
     params,
   }: {
