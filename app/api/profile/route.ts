@@ -1,15 +1,9 @@
 import { getToken } from "next-auth/jwt";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
+import { ProfileUpdateData } from "@/lib/type";
 
 const prisma = new PrismaClient();
-
-type ProfileUpdateData = {
-  bio?: string;
-  profilePicture?: string;
-  bannerPicture?: string;
-  displayName?: string;
-};
 
 async function handler(req: NextRequest) {
   const token = await getToken({ req });

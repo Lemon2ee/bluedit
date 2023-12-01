@@ -1,13 +1,11 @@
-"use client";
-
 import Navbar from "@/app/home/navbar";
-import ProfileForms from "@/app/profile/edit/profileForms";
+import Profile from "@/app/profile/profile";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <ProfileForms />
+      <Profile />
     </>
   );
 }

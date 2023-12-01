@@ -1,3 +1,5 @@
+"use client";
+
 import { Fragment } from "react";
 import logo from "app/img/logo.png";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
