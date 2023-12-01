@@ -13,8 +13,6 @@ model User {
   password String
   role     Role      @default(USER)
   image    String
-  accounts Account[]
-  sessions Session[]
   posts    Thread[]
   comments Comment[]
   profile  Profile?
@@ -47,8 +45,8 @@ model Comment {
   createdAt DateTime @default(now())
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId  String   @db.ObjectId
-  post      Thread     @relation(fields: [threadId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  threadId    String   @db.ObjectId
+  post      Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  threadId  String   @db.ObjectId
 }
 
 enum Role {
