@@ -71,7 +71,21 @@ export const authOptions: NextAuthOptions = {
         },
       });
 
+      const userSearchResult = await prisma.user.findUnique({
+        where: {
+          id: token.sub,
+        },
+        select: {
+          role: true,
+        },
+      });
+
+      if (!userSearchResult || !userSearchResult.role) return session;
+
       session.user.image = profileSearchResult?.profilePicture;
+      session.user.role = userSearchResult?.role;
+
+      if (!session) return session;
 
       return session;
     },

@@ -1,6 +1,6 @@
 import Navbar from "@/app/home/navbar";
 import { headers } from "next/headers";
-import { ProfileUpdateData } from "@/lib/type";
+import { ProfileData } from "@/lib/type";
 import Header from "@/app/profile/header";
 
 async function getProfile(id: string) {
@@ -21,12 +21,14 @@ async function getProfile(id: string) {
 export default async function PublicProfile({
   params,
 }: {
-  params: { userID: string };
+  params: {
+    userID: string;
+  };
 }) {
   const userID = params.userID;
   if (!userID) return null;
 
-  const profile: ProfileUpdateData = await getProfile(userID);
+  const profile: ProfileData = await getProfile(userID);
 
   if (
     !profile ||
@@ -43,6 +45,7 @@ export default async function PublicProfile({
         profilePicture={profile.profilePicture}
         bannerPicture={profile.bannerPicture}
         name={profile.displayName}
+        edit={profile.edit || false}
       />
     </>
   );

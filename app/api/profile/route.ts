@@ -1,7 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
-import { ProfileUpdateData } from "@/lib/type";
+import { ProfileData } from "@/lib/type";
 
 const prisma = new PrismaClient();
 
@@ -30,7 +30,7 @@ async function handler(req: NextRequest) {
       );
     }
 
-    const updateData: ProfileUpdateData = body;
+    const updateData: ProfileData = body;
 
     try {
       const updatedProfile = await prisma.profile.update({

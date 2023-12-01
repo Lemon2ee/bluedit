@@ -30,6 +30,7 @@ export default function Profile() {
         bannerPicture={profile.bannerPicture}
         profilePicture={profile.profilePicture}
         name={profile.displayName}
+        edit={true}
       />
     </>
   );
