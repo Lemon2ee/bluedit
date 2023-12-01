@@ -1,12 +1,9 @@
 'use client'
 
-import Image from 'next/image'
-import logo from 'app/img/logo.png'
 import {useRouter} from "next/navigation";
-import React, {useState} from "react";
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import React from "react";
 import SearchResultList from '@/app/search/resultList'
-import SearchHeader from "@/app/search/header";
+import Navbar from "@/app/home/navbar";
 
 
 export default function SearchResult() {
@@ -14,7 +11,7 @@ export default function SearchResult() {
 
     return (
         <div className={"flex justify-center flex-col"}>
-            <div className="row"><SearchHeader/></div>
+            <div className="row"><Navbar/></div>
             <div className="row"><SearchResultList/></div>
         </div>
     )
