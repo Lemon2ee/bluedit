@@ -4,6 +4,8 @@ import {Fragment} from 'react'
 import {Listbox, Transition} from '@headlessui/react'
 import {CalendarIcon, PaperClipIcon, TagIcon, UserCircleIcon} from '@heroicons/react/20/solid'
 import dynamic from "next/dynamic";
+import {useRouter} from "next/navigation";
+import {errorToast} from "@/app/login/components";
 
 const state = [
     {name: 'Private', value: false},
@@ -15,28 +17,64 @@ function classNames(...classes: string[]) {
 }
 
 export default function CreateThread() {
+    const router = useRouter();
     const [isPublic, setisPublic] = useState(state[0])
+    const[title, setTitle] = useState<string>('')
     const [content, setContent] = useState<string>('');
+    const [showErrorToast, setShowErrorToast] = useState(false)
+    const [errorMessages, setErrorMessages] = useState<string>("")
     const DynamicTextEditor = useMemo(() => {
-
         return dynamic(() => import("./textEditor"), {
-
             loading: () => <p>loading...</p>,
-
             ssr: false,
 
         });
     }, []);
-    const handleSubmit = (event: { preventDefault: () => void; }) => {
+    const handleSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        console.log(content); // Process the content here
+        try {
+            const res = await fetch('/api/thread', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    title: title,
+                    content: content,
+                    published: isPublic.value,
+                    authorId: '6564d3aec184c07f7b91c93b' // Need to fetch user id.
+                }),
+            })
+            const json = await res.json();
+            console.log(json);
+            if (json.message) {
+
+                setErrorMessages(json.message)
+                setShowErrorToast(true)
+                return
+            }
+
+            router.push('/thread')
+
+        } catch (e) {
+            if (e instanceof Error) {
+                throw Error(e.message)
+            }
+        }
     };
     return (
+        <>
+            {showErrorToast && (
+            errorToast(errorMessages)
+        )}
         <div className="max-w-2xl mx-auto">
             <form action="#" className="relative">
                 <DynamicTextEditor
-                content={content}
-                setContent={setContent}/>
+                    content={content}
+                    setContent={setContent}
+                    title={title}
+                    setTitle={setTitle}
+                />
 
                 <div className="flex items-center justify-end space-x-3 border-t border-gray-200 px-2 py-2 sm:px-3">
                     <Listbox as="div" value={isPublic} onChange={setisPublic} className="flex-shrink-0">
@@ -99,6 +137,7 @@ export default function CreateThread() {
                         <button
                             type="submit"
                             className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            onClick={handleSubmit}
                         >
                             Create
                         </button>
@@ -106,5 +145,6 @@ export default function CreateThread() {
                 </div>
             </form>
         </div>
+        </>
     )
 }
