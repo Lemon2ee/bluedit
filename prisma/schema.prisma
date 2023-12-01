@@ -9,23 +9,20 @@ generator client {
 
 model User {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
-  name     String?
   username String?   @unique
   password String
   role     Role      @default(USER)
-  image    String
   posts    Post[]
   comments Comment[]
-  Profile  Profile?
+  profile  Profile?
 }
 
 model Profile {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   bio            String
   profilePicture String
-  firstName      String
-  lastName       String
-  country        String
+  bannerPicture  String
+  displayName    String
   user           User   @relation(fields: [userId], references: [id])
   userId         String @unique @db.ObjectId
 }
