@@ -1,37 +1,15 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Header from "@/app/profile/header";
+import authOptions from "@/app/api/auth/[...nextauth]/nextAuthOptions";
+import { getServerSession } from "next-auth";
 
-export default function Profile() {
-  const [profile, setProfile] = useState({
-    bio: "",
-    profilePicture: "",
-    bannerPicture: "",
-    displayName: "",
-  });
+export default async function Profile() {
+  const session = await getServerSession(authOptions);
 
-  useEffect(() => {
-    fetch("/api/profile")
-      .then((res) => res.json())
-      .then((data) => {
-        setProfile({
-          bio: data.bio,
-          profilePicture: data.profilePicture,
-          bannerPicture: data.bannerPicture,
-          displayName: data.displayName,
-        });
-      });
-  }, []);
+  if (!session?.user.id) return null;
 
   return (
     <>
-      <Header
-        bannerPicture={profile.bannerPicture}
-        profilePicture={profile.profilePicture}
-        name={profile.displayName}
-        edit={true}
-      />
+      <Header id={session?.user.id} />
     </>
   );
 }

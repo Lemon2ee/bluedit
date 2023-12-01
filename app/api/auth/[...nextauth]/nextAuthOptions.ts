@@ -84,6 +84,7 @@ export const authOptions: NextAuthOptions = {
 
       session.user.image = profileSearchResult?.profilePicture;
       session.user.role = userSearchResult?.role;
+      session.user.id = token.sub;
 
       if (!session) return session;
 
