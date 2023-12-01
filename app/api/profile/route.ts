@@ -14,6 +14,7 @@ type ProfileUpdateData = {
 async function handler(req: NextRequest) {
   const token = await getToken({ req });
   const userID = token?.sub;
+
   if (req.method === "GET") {
     const profile = await prisma.profile.findUnique({
       where: {
