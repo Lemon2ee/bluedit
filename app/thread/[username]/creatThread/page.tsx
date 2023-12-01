@@ -14,12 +14,12 @@ function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
 
-export default function CreatePost() {
+export default function CreateThread() {
     const [isPublic, setisPublic] = useState(state[0])
     const [content, setContent] = useState<string>('');
     const DynamicTextEditor = useMemo(() => {
 
-        return dynamic(() => import("@/app/post/[username]/creatPost/textEditor"), {
+        return dynamic(() => import("./textEditor"), {
 
             loading: () => <p>loading...</p>,
 
