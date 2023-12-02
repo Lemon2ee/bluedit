@@ -10,7 +10,9 @@ async function handler(
   {
     params,
   }: {
-    params: { userID: string[] };
+    params: {
+      userID: string[];
+    };
   },
 ) {
   const token = await getToken({ req });
