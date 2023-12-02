@@ -9,7 +9,6 @@ export async function POST(req: NextRequest) {
     const token = await getToken({ req });
     const userID = token?.sub;
 
-    // check if username and password are present
     if (!title || !content) {
         return Response.json({message: 'Unfinished thread, please try again'}, {status:400});
     }
