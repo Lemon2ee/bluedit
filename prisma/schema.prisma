@@ -56,6 +56,7 @@ model Thread {
   author    User      @relation(fields: [authorId], references: [id] , onDelete: Cascade, onUpdate: Cascade)
   authorId  String    @db.ObjectId
   comments  Comment[]
+  upvote    Int? @default(0)
 }
 
 model Comment {

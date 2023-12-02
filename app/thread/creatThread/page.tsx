@@ -6,6 +6,7 @@ import {CalendarIcon, PaperClipIcon, TagIcon, UserCircleIcon} from '@heroicons/r
 import dynamic from "next/dynamic";
 import {useRouter} from "next/navigation";
 import {errorToast} from "@/app/login/components";
+import {useSession} from "next-auth/react";
 
 const state = [
     {name: 'Private', value: false},
@@ -27,7 +28,6 @@ export default function CreateThread() {
         return dynamic(() => import("./textEditor"), {
             loading: () => <p>loading...</p>,
             ssr: false,
-
         });
     }, []);
     const handleSubmit = async (event: { preventDefault: () => void; }) => {
@@ -42,7 +42,6 @@ export default function CreateThread() {
                     title: title,
                     content: content,
                     published: isPublic.value,
-                    authorId: '6564d3aec184c07f7b91c93b' // Need to fetch user id.
                 }),
             })
             const json = await res.json();

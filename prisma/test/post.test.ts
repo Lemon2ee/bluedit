@@ -2,86 +2,88 @@ import { prismaMock } from './singleton';
 import prisma from './client';
 import {DateTime} from "next-auth/providers/kakao";
 
-interface CreatePost {
+interface CreateThread{
     id: string;
     title: string;
     content: string;
     published: boolean;
     authorId: string;
+    upvote: number;
 }
 
-interface UpdatePost {
+interface UpdateThread {
     title?: string;
     content?: string;
     published?: boolean;
 }
 
-async function createPost(post: CreatePost) {
-    return prisma.post.create({
-        data: post,
+async function createThread(thread: CreateThread) {
+    return prisma.thread.create({
+        data: thread,
     });
 }
 
-async function getPost(id: string) {
-    return prisma.post.findUnique({
+async function getThread(id: string) {
+    return prisma.thread.findUnique({
         where: { id },
     });
 }
 
-async function updatePost(id: string, data: UpdatePost) {
-    return prisma.post.update({
+async function updateThread(id: string, data: UpdateThread) {
+    return prisma.thread.update({
         where: { id },
         data,
     });
 }
 
-async function deletePost(id: string) {
-    return prisma.post.delete({
+async function deleteThread(id: string) {
+    return prisma.thread.delete({
         where: { id },
     });
 }
 
-describe('Post Tests', () => {
+describe('thread Tests', () => {
     const currentDate = new Date();
-    const post = {
-        id: 'post_id',
+    const thread = {
+        id: 'thread_id',
         createdAt: currentDate, // Add this line
-        title: 'Sample Post',
-        content: 'This is a sample post',
+        title: 'Sample thread',
+        content: 'This is a sample thread',
         published: false,
-        authorId: 'author_id'
+        authorId: 'author_id',
+        upvote: 1,
     };
 
 
-    test('should create new post', async () => {
-        prismaMock.post.create.mockResolvedValue(post);
-        await expect(createPost(post)).resolves.toEqual(post);
+    test('should create new thread', async () => {
+        prismaMock.thread.create.mockResolvedValue(thread);
+        await expect(createThread(thread)).resolves.toEqual(thread);
     });
 
-    test('should retrieve a post', async () => {
-        prismaMock.post.findUnique.mockResolvedValue(post);
-        await expect(getPost(post.id)).resolves.toEqual(post);
+    test('should retrieve a thread', async () => {
+        prismaMock.thread.findUnique.mockResolvedValue(thread);
+        await expect(getThread(thread.id)).resolves.toEqual(thread);
     });
 
-    test('should update a post', async () => {
-        const updatedPostData = { ...post, title: 'Updated Title' };
-        prismaMock.post.update.mockResolvedValue(updatedPostData);
-        await expect(updatePost(post.id, { title: 'Updated Title' })).resolves.toEqual(updatedPostData);
+    test('should update a thread', async () => {
+        const updatedthreadData = { ...thread, title: 'Updated Title' };
+        prismaMock.thread.update.mockResolvedValue(updatedthreadData);
+        await expect(updateThread(thread.id, { title: 'Updated Title' })).resolves.toEqual(updatedthreadData);
     });
 
-    test('should delete a post', async () => {
-        prismaMock.post.delete.mockResolvedValue(post);
-        await expect(deletePost(post.id)).resolves.toEqual(post);
+    test('should delete a thread', async () => {
+        prismaMock.thread.delete.mockResolvedValue(thread);
+        await expect(deleteThread(thread.id)).resolves.toEqual(thread);
     })
 
-    test('should delete a post and not find it', async () => {
-        const postId = 'post_id';
+    test('should delete a thread and not find it', async () => {
+        const threadId = 'thread_id';
 
-        prismaMock.post.delete.mockResolvedValue(post);
+        prismaMock.thread.delete.mockResolvedValue(thread);
 
-        await deletePost(postId);
+        await deleteThread(threadId);
 
-        const result = await getPost(postId);
+        const result = await getThread(threadId);
 
         expect(result).toBeUndefined();
     });
