@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { Role } from "@prisma/client";
 import { ProfileData } from "@/lib/type";
@@ -32,7 +31,7 @@ async function handler(
     });
 
     if (!role)
-      return NextResponse.json(
+      return Response.json(
         {
           message: "Unable to fetch user role",
         },
@@ -48,7 +47,7 @@ async function handler(
       edit: isAdmin,
     };
 
-    return NextResponse.json(profileData, { status: 200 });
+    return Response.json(profileData, { status: 200 });
   }
 }
 
