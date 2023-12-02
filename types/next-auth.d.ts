@@ -9,6 +9,9 @@ declare module "next-auth" {
       /** The user's postal address. */
       role?: string | null | undefined;
       id?: string | null | undefined;
+      name?: string | null;
+      email?: string | null;
+      image?: string | null;
     } & DefaultSession["user"];
   }
 }

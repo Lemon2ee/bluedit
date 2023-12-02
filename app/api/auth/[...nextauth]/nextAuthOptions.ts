@@ -60,7 +60,6 @@ export const authOptions: NextAuthOptions = {
       }
 
       // Now that session.user is guaranteed to be an object, you can safely assign properties to it.
-      session.user.name = token.name;
 
       const profileSearchResult = await prisma.profile.findUnique({
         where: {
@@ -68,6 +67,7 @@ export const authOptions: NextAuthOptions = {
         },
         select: {
           profilePicture: true,
+          displayName: true,
         },
       });
 
@@ -82,12 +82,12 @@ export const authOptions: NextAuthOptions = {
 
       if (!userSearchResult || !userSearchResult.role) return session;
 
+      session.user.name = profileSearchResult?.displayName;
       session.user.image = profileSearchResult?.profilePicture;
       session.user.role = userSearchResult?.role;
       session.user.id = token.sub;
 
       if (!session) return session;
-
       return session;
     },
   },

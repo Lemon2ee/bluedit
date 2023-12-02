@@ -3,5 +3,4 @@ export type ProfileData = {
   profilePicture?: string;
   bannerPicture?: string;
   displayName?: string;
-  edit?: boolean;
 };

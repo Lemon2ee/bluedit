@@ -17,8 +17,14 @@ async function getProfile(id: string) {
   return res.json();
 }
 
-export default async function Header({ id }: { id: string }) {
-  const profile: ProfileData = await getProfile(id);
+export default async function Header({
+  profileUserID,
+  editable,
+}: {
+  profileUserID: string;
+  editable: boolean;
+}) {
+  const profile: ProfileData = await getProfile(profileUserID);
 
   return (
     <div>
@@ -44,7 +50,7 @@ export default async function Header({ id }: { id: string }) {
                 {profile.displayName}
               </h1>
             </div>
-            {profile.edit && (
+            {editable && (
               <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
                 <a
                   href="/profile/edit"
