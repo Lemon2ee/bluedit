@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma";
 import { Role } from "@prisma/client";
 import { ProfileData } from "@/lib/type";
 
-export async function handler(
+async function handler(
   req: Request,
   {
     params,
@@ -52,4 +52,4 @@ export async function handler(
   }
 }
 
-export {handler as GET};
+export { handler as GET };
