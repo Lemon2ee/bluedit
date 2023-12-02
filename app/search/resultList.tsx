@@ -25,9 +25,6 @@ const posts = [
 ]
 
 export default function SearchResultList() {
-    // Unfinished work:
-    // 1. Backend search API [Search, Pagination]
-    // 2. Get Profile data for each post: img
     return (
         <ul role="list" className="divide-y divide-gray-100">
             {posts.map((post) => (
