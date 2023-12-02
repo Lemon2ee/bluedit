@@ -1,5 +1,6 @@
 import {DateTime} from "next-auth/providers/kakao";
 import {headers} from "next/headers";
+import UpvoteButton from "@/app/thread/[threadId]/upvote";
 interface Thread {
     id: string;
     title: string;
@@ -43,6 +44,7 @@ export default async function ThreadPage({params}: {
                 {/*There are dangerous if not sanitized, and that needs DOMPurify*/}
                 <div dangerouslySetInnerHTML={{ __html: thread.content }}></div>
             </div>
+            <UpvoteButton initialUpvotes={thread.upvote}/>
         </div>
     )
 }
