@@ -13,7 +13,7 @@ model User {
   password String
   role     Role      @default(USER)
   image    String?
-  posts    Thread[]
+  threads  Thread[]
   comments Comment[]
   profile  Profile?
 }
@@ -37,6 +37,7 @@ model Thread {
   author    User      @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId  String    @db.ObjectId
   comments  Comment[]
+  upvote    Int?      @default(0)
 }
 
 model Comment {
