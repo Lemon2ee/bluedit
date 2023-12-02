@@ -29,7 +29,7 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function MainBar({ session }: { session: Session }) {
+export default function MainBar({ session }: { session: Session | null }) {
   return (
     <Disclosure as="header" className="bg-white shadow">
       {({ open }) => (

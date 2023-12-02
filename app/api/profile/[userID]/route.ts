@@ -3,8 +3,8 @@ import prisma from "@/lib/prisma";
 import { Role } from "@prisma/client";
 import { ProfileData } from "@/lib/type";
 
-export async function GET(
-  _req: Request,
+export async function handler(
+  req: Request,
   {
     params,
   }: {
@@ -13,39 +13,43 @@ export async function GET(
     };
   },
 ) {
-  const userID = params.userID;
-  if (!userID) return null;
-  const profile = await prisma.profile.findUnique({
-    where: {
-      userId: userID,
-    },
-  });
-
-  const role = await prisma.user.findUnique({
-    where: {
-      id: userID,
-    },
-    select: {
-      role: true,
-    },
-  });
-
-  if (!role)
-    return NextResponse.json(
-      {
-        message: "Unable to fetch user role",
+  if (req.method === "GET") {
+    const userID = params.userID;
+    if (!userID) return null;
+    const profile = await prisma.profile.findUnique({
+      where: {
+        userId: userID,
       },
-      {
-        status: 500,
+    });
+
+    const role = await prisma.user.findUnique({
+      where: {
+        id: userID,
       },
-    );
+      select: {
+        role: true,
+      },
+    });
 
-  const isAdmin = role.role === Role.ADMIN;
+    if (!role)
+      return NextResponse.json(
+        {
+          message: "Unable to fetch user role",
+        },
+        {
+          status: 500,
+        },
+      );
 
-  const profileData: ProfileData = {
-    ...profile,
-    edit: isAdmin,
-  };
+    const isAdmin = role.role === Role.ADMIN;
 
-  return NextResponse.json(profileData, { status: 200 });
+    const profileData: ProfileData = {
+      ...profile,
+      edit: isAdmin,
+    };
+
+    return NextResponse.json(profileData, { status: 200 });
+  }
 }
+
+export {handler as GET};
