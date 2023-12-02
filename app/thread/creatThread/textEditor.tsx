@@ -1,12 +1,14 @@
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { useCallback, useMemo, useRef, useState } from "react";
+import React, { useMemo, } from "react";
 
 interface TextEditorProps {
     content: string;
     setContent: (content: string) => void;
+    title: string;
+    setTitle: (content: string) => void;
 }
-const TextEditor: React.FC<TextEditorProps> = ({ content, setContent }) => {
+const TextEditor: React.FC<TextEditorProps> = ({ content, setContent, title,setTitle }) => {
 
 
     const modules = useMemo(
@@ -61,6 +63,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ content, setContent }) => {
                 id="title"
                 className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0 focus:outline-none py-3"
                 placeholder="Title"
+                onChange={(e) =>setTitle(e.target.value)}
             />
 
                 <ReactQuill
