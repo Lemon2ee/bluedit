@@ -8,7 +8,6 @@ export async function POST(req: NextRequest) {
     const {title, content, published} = body;
     const token = await getToken({ req });
     const userID = token?.sub;
-    console.log(body);
 
     // check if username and password are present
     if (!title || !content) {

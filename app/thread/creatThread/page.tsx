@@ -45,7 +45,6 @@ export default function CreateThread() {
                 }),
             })
             const json = await res.json();
-            console.log(json);
             if (json.message) {
 
                 setErrorMessages(json.message)
