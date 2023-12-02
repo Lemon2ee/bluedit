@@ -14,7 +14,15 @@ async function handler(
 ) {
   if (req.method === "GET") {
     const userID = params.userID;
-    if (!userID) return null;
+    if (!userID)
+      return Response.json(
+        {
+          message: "No user id provided",
+        },
+        {
+          status: 400,
+        },
+      );
     const profile = await prisma.profile.findUnique({
       where: {
         userId: userID,
