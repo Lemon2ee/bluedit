@@ -1,18 +1,14 @@
-'use client'
+"use client";
 
-
-import {useRouter} from "next/navigation";
-import {useEffect} from "react";
-
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Home() {
-    const {push} = useRouter();
+  const { push } = useRouter();
 
-    useEffect(() => {
-        push('/home');
-    }, [push]);
+  useEffect(() => {
+    push("/home");
+  }, [push]);
 
-    return (
-        <></>
-    )
+  return <></>;
 }
