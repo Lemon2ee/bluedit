@@ -1,9 +1,7 @@
 import { getToken } from "next-auth/jwt";
-import { PrismaClient } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { ProfileData } from "@/lib/type";
-
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 async function handler(
   req: NextRequest,
