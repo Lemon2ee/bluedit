@@ -9,12 +9,12 @@ export async function GET(
     params: { threadID: string };
   },
 ) {
-  const threadId = params.threadID;
+  const threadID = params.threadID;
 
   try {
     const thread = await prisma.thread.findUnique({
       where: {
-        id: threadId,
+        id: threadID,
       },
       include: {
         author: true,

@@ -1,13 +1,38 @@
 'use client'
 import React, { useState } from 'react';
+import {errorToast} from "@/app/login/components";
 interface UpvoteProps {
     initialUpvotes: number
+    threadId: string
 }
-const UpvoteButton: React.FC<UpvoteProps> = ({ initialUpvotes }) => {
+const UpvoteButton: React.FC<UpvoteProps> = ({ initialUpvotes,threadId }) => {
     const [upvoteCount, setUpvoteCount] = useState(initialUpvotes);
+    const [isVoted, setIsVoted] = useState(false);
+    const handleUpvote = async () => {
+        if (!isVoted) {
+            try {
+                const res = await fetch(`/api/thread/${threadId}/upvote`, {
+                    method: "POST",
+                });
+                console.log(res);
+                const json = await res.json();
+                if (json.message) {
+                    errorToast(json.message);
+                    return;
+                }
+                setUpvoteCount(upvoteCount + 1);
+                setIsVoted(true);
+                return;
 
-    const handleUpvote = () => {
-        setUpvoteCount(upvoteCount + 1);
+            } catch (e) {
+                if (e instanceof Error) {
+                    throw Error(e.message);
+                }
+            }
+
+        } else {
+            errorToast("You have already voted.")
+        }
         // Add API call logic here if needed
     };
 

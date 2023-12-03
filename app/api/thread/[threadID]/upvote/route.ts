@@ -1,27 +1,28 @@
-
 import {NextRequest} from "next/server";
 import prisma from '@/lib/prisma';
 
 export async function POST(
     _req: NextRequest,
-                           {
-                               params,
-                           }: {
-                               params: { threadId: string};
-                           },) {
-    const threadId = params.threadId;
+    {
+        params,
+    }: {
+        params: { threadID: string };
+    },) {
+    const threadID = params.threadID;
 
     try {
+        console.log("Before update")
         const newThread = await prisma.thread.update({
             where: {
-                id: threadId,
+                id: threadID,
             },
-            data:{
+            data: {
                 upvote: {
                     increment: 1,
-    },
+                },
             },
-            })
+        })
+        console.log("Finished process")
         return Response.json({status: 200});
     } catch (error) {
         // Handle or log the error

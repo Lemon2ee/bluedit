@@ -1,6 +1,7 @@
 "use client";
 
 import { Thread } from "@/types/thread";
+import UpvoteButton from "@/app/thread/[threadID]/upvote";
 
 export default function ThreadContent({ thread }: { thread: Thread }) {
   return (
@@ -17,6 +18,7 @@ export default function ThreadContent({ thread }: { thread: Thread }) {
           className="mt-10 max-w-2xl"
           dangerouslySetInnerHTML={{ __html: thread.content }}
         />
+        <UpvoteButton initialUpvotes={thread.upvote} threadId={thread.id}/>
       </div>
     </div>
   );
