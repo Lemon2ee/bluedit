@@ -1,11 +1,10 @@
 "use client";
 
-import {useRouter} from "next/router";
 import React, {useEffect, useState} from "react";
 import SearchResultList from "@/app/search/resultList";
 import PageSelector from "@/app/search/pageSelector";
 import {useSearchParams} from "next/navigation";
-import {Thread} from "@/app/search/thread"
+import {Thread} from "@/types/thread"
 
 const PAGE_SIZE = 8;
 
