@@ -42,7 +42,7 @@ export default function Comments({ thread }: { thread: Thread }) {
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
         <UpvoteButton initialUpvotes={thread.upvote} threadId={thread.id} />
 
-        <NewComment />
+        <NewComment thread={thread} />
 
         <div className={"py-10"}>
           <h2 className="sr-only">Customer Reviews</h2>
