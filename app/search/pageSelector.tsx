@@ -16,7 +16,7 @@ export default function PageSelector({pageSize, pageNumber, setPageNumber, keywo
     };
 
     const handleNextClick = () => {
-        if (pageNumber < totalPages) {
+        if (pageNumber + 1 < totalPages) {
             setPageNumber(pageNumber + 1);
         }
     };
@@ -56,7 +56,7 @@ export default function PageSelector({pageSize, pageNumber, setPageNumber, keywo
                 </svg>
             </button>
 
-            <p>{pageNumber + 1} / {totalPages + 1}</p>
+            <p>{pageNumber + 1} / {totalPages}</p>
 
             <button
                 className="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center"
