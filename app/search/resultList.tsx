@@ -1,28 +1,33 @@
-import { ChevronRightIcon } from '@heroicons/react/20/solid'
+import { ChevronRightIcon } from "@heroicons/react/20/solid";
 
 const posts = [
-    {
-        title: 'Hoyoverse: Genshin Impact 4.2 Incoming',
-        shortContent: 'The version 4.2 Banners debut new 5-Star character Furina, the Hydro Archon of Fontaine, and new 4-Star Charlotte.\n',
-        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrIOTjQn295QJG51JoDtCe-WZisHNK2j2d8g&usqp=CAU',
-        href: '#',
-        postedOn: 'March 2, 2023',
-    },
-    {
-        title: 'Genshin Wish Stats',
-        shortContent: 'Wishes are the gacha system in Genshin Impact. There are two main types of Wishes: the permanent Standard Wish, Wanderlust Invocation, and limited-time Event Wishes for Characters and Weapons.',
-        imageUrl: 'https://cdn.mos.cms.futurecdn.net/5xNq659vCbF3GQBbSkc5SY.jpg',
-        href: '#',
-        postedOn: 'October 10, 2023',
-    },
-    {
-        title: 'Genshin - HOYOverse ',
-        shortContent: 'At HoYoverse, we are committed to creating immersive virtual world experiences for players around the world. ',
-        imageUrl: 'https://c8.alamy.com/comp/2JP4789/cosplayer-as-xiao-from-genshin-impact-a-chinese-open-world-action-role-playing-game-character-portrait-mcm-comic-con-london-2JP4789.jpg',
-        href: '#',
-        postedOn: 'November 13, 2023',
-    },
-]
+  {
+    title: "Hoyoverse: Genshin Impact 4.2 Incoming",
+    shortContent:
+      "The version 4.2 Banners debut new 5-Star character Furina, the Hydro Archon of Fontaine, and new 4-Star Charlotte.\n",
+    imageUrl:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrIOTjQn295QJG51JoDtCe-WZisHNK2j2d8g&usqp=CAU",
+    href: "#",
+    postedOn: "March 2, 2023",
+  },
+  {
+    title: "Genshin Wish Stats",
+    shortContent:
+      "Wishes are the gacha system in Genshin Impact. There are two main types of Wishes: the permanent Standard Wish, Wanderlust Invocation, and limited-time Event Wishes for Characters and Weapons.",
+    imageUrl: "https://cdn.mos.cms.futurecdn.net/5xNq659vCbF3GQBbSkc5SY.jpg",
+    href: "#",
+    postedOn: "October 10, 2023",
+  },
+  {
+    title: "Genshin - HOYOverse ",
+    shortContent:
+      "At HoYoverse, we are committed to creating immersive virtual world experiences for players around the world. ",
+    imageUrl:
+      "https://c8.alamy.com/comp/2JP4789/cosplayer-as-xiao-from-genshin-impact-a-chinese-open-world-action-role-playing-game-character-portrait-mcm-comic-con-london-2JP4789.jpg",
+    href: "#",
+    postedOn: "November 13, 2023",
+  },
+];
 
 export default function SearchResultList() {
     return (

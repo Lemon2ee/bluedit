@@ -1,11 +1,9 @@
-'use client'
-
-import Navbar from "@/app/home/navbar";
+import Navbar from "@/app/home/NavBar/navbar";
 
 export default function Home() {
-    return (
-        <>
-            <Navbar/>
-        </>
-    )
+  return (
+    <>
+      <Navbar />
+    </>
+  );
 }

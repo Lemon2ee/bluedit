@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
 import React, {useState} from "react";
 import SearchResultList from '@/app/search/resultList'
-import Navbar from "@/app/home/navbar";
+import Navbar from "@/app/home/NavBar/navbar";
 import PageSelector from "@/app/search/pageSelector";
 
 const PAGE_SIZE = 8
