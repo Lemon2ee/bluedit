@@ -3,6 +3,8 @@ import Navbar from "@/app/home/NavBar/navbar";
 import ThreadContent from "@/app/thread/[threadID]/threadContent";
 import { Thread } from "@/types/thread";
 import Comments from "@/app/thread/[threadID]/comments";
+import prisma from "@/lib/prisma";
+import { Profile } from "@prisma/client";
 
 async function getThread(threadID: string): Promise<Thread> {
   const host = headers().get("host");
@@ -17,6 +19,22 @@ async function getThread(threadID: string): Promise<Thread> {
   return res.json();
 }
 
+async function constructComments(thread: Thread): Promise<Profile[]> {
+  const commentAuthors: string[] = [];
+
+  for (const comment of thread.comments) {
+    commentAuthors.push(comment.authorId);
+  }
+
+  return prisma.profile.findMany({
+    where: {
+      userId: {
+        in: commentAuthors,
+      },
+    },
+  });
+}
+
 export default async function ThreadPage({
   params,
 }: {
@@ -25,11 +43,12 @@ export default async function ThreadPage({
   };
 }) {
   const thread = await getThread(params.threadID);
+  const comments = await constructComments(thread);
   return (
     <>
       <Navbar />
       <ThreadContent thread={thread} />
-      <Comments thread={thread} />
+      <Comments thread={thread} commentsAuthorInfo={comments} />
     </>
   );
 }
