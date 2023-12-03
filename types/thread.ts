@@ -1,10 +1,11 @@
 import { DateTime } from "next-auth/providers/kakao";
+import {User} from "next-auth";
 
 export interface Thread {
   id: string;
   title: string;
   content: string;
-  // author: User;
+  author: User;
   comments: Comment[];
   createdAt: DateTime;
   upvote: number;

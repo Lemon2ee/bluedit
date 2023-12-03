@@ -1,5 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/20/solid";
-import {Thread} from "@/app/search/thread";
+import {Thread} from "@/types/thread"
 
 interface SearchResultListProps {
     threads: Thread[];
