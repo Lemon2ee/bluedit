@@ -1,6 +1,8 @@
 "use client";
 
 import NewComment from "@/app/thread/[threadID]/newComment";
+import UpvoteButton from "@/app/thread/[threadID]/upvote";
+import { Thread } from "@/types/thread";
 
 const reviews = [
   {
@@ -34,10 +36,12 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Comments() {
+export default function Comments({ thread }: { thread: Thread }) {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
+        <UpvoteButton initialUpvotes={thread.upvote} threadId={thread.id} />
+
         <NewComment />
 
         <div className={"py-10"}>

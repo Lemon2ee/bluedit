@@ -29,7 +29,7 @@ export default async function ThreadPage({
     <>
       <Navbar />
       <ThreadContent thread={thread} />
-      <Comments />
+      <Comments thread={thread} />
     </>
   );
 }
