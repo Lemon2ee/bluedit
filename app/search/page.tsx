@@ -5,11 +5,11 @@ import SearchResultList from '@/app/search/resultList'
 import Navbar from "@/app/home/navbar";
 import PageSelector from "@/app/search/pageSelector";
 
+const PAGE_SIZE = 8
 
 // const SearchResult = (keyword: string) => {
 const SearchResult = () => {
     const [pageNumber, setPageNumber] = useState(0)
-    const [pageSize, setPageSize] = useState(10)
 
     return (
         <div className={"flex justify-center flex-col"}>
@@ -17,8 +17,7 @@ const SearchResult = () => {
             <div className="row"><SearchResultList/></div>
             <div className="row">
                 <PageSelector
-                    pageSize={pageSize}
-                    setPageSize={setPageSize}
+                    pageSize={PAGE_SIZE}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
                     keyword={"test content"}

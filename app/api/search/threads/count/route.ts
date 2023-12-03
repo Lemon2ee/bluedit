@@ -11,7 +11,7 @@ export async function GET(req: Request) {
     console.log(`Received Search Request for keyword: ${keyword}`);
 
     // Use the keyword to count the matching threads
-    const count = prisma.thread.count({
+    const count = await prisma.thread.count({
         where: {
             title: {
                 contains: keyword,
@@ -19,5 +19,5 @@ export async function GET(req: Request) {
             },
         },
     });
-    return Response.json({count: count})
+    return Response.json({ count })
 }
