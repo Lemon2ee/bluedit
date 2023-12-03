@@ -4,6 +4,7 @@ import NewComment from "@/app/thread/[threadID]/newComment";
 import UpvoteButton from "@/app/thread/[threadID]/upvote";
 import { Thread } from "@/types/thread";
 import { Profile } from "@prisma/client";
+import {Session} from "next-auth";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -11,17 +12,18 @@ function classNames(...classes: string[]) {
 
 export default function Comments({
   thread,
-  commentsAuthorInfo,
+  commentsAuthorInfo, session,
 }: {
   thread: Thread;
   commentsAuthorInfo: Profile[];
+  session: Session | null;
 }) {
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
         <UpvoteButton initialUpvotes={thread.upvote} threadId={thread.id} />
 
-        <NewComment thread={thread} />
+        <NewComment thread={thread} session={session} />
 
         <div className={"py-10"}>
           <h2 className="sr-only">Customer Reviews</h2>
