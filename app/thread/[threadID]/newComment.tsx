@@ -11,6 +11,8 @@ import {
   XMarkIcon,
 } from "@heroicons/react/20/solid";
 import { Listbox, Transition } from "@headlessui/react";
+import {Thread} from "@/types/thread";
+import {errorToast} from "@/app/login/components";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -61,9 +63,36 @@ const moods = [
   },
 ];
 
-export default function NewComment() {
+export default function NewComment({ thread }: { thread: Thread }) {
   const [selected, setSelected] = useState(moods[5]);
-
+  const [content, setContent] = useState("");
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [errorMessages, setErrorMessages] = useState<string>("");
+  const createComment = async (event: { preventDefault: () => void }) => {
+    event.preventDefault();
+    try {
+      const res = await fetch(`/api/thread/${thread.id}/createComment`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: content,
+        }),
+      });
+      const json = await res.json();
+      if (json.message) {
+        setErrorMessages(json.message);
+        setShowErrorToast(true);
+        return;
+      }
+      // may need router refresh here
+    } catch (e) {
+      if (e instanceof Error) {
+        throw Error(e.message);
+      }
+    }
+  };
   return (
     <>
       {/* New comment form */}
@@ -85,6 +114,7 @@ export default function NewComment() {
               className="block w-full resize-none border-0 bg-transparent py-1.5 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
               placeholder="Add your comment..."
               defaultValue={""}
+              onChange={(e)=>setContent(e.target.value)}
             />
           </div>
 
@@ -187,9 +217,12 @@ export default function NewComment() {
             <button
               type="submit"
               className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              onClick={createComment}
             >
               Comment
             </button>
+            {showErrorToast && errorToast(errorMessages)}
+
           </div>
         </form>
       </div>

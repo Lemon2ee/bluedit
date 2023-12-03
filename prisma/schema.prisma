@@ -46,7 +46,7 @@ model Comment {
   createdAt DateTime @default(now())
   author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   authorId  String   @db.ObjectId
-  post      Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  thread    Thread   @relation(fields: [threadId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   threadId  String   @db.ObjectId
 }
 

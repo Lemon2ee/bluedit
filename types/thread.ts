@@ -13,5 +13,7 @@ export interface Thread {
 export interface Comment {
   id: string;
   content: string;
-  // author: User;
+  comment: DateTime;
+  authorId: string;
+  threadID: string;
 }
