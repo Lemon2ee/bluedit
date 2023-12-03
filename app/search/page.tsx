@@ -1,13 +1,13 @@
 'use client'
 
-import {useRouter} from "next/navigation";
 import React, {useState} from "react";
 import SearchResultList from '@/app/search/resultList'
 import Navbar from "@/app/home/navbar";
 import PageSelector from "@/app/search/pageSelector";
 
 
-const SearchResult = (keyword: string) => {
+// const SearchResult = (keyword: string) => {
+const SearchResult = () => {
     const [pageNumber, setPageNumber] = useState(0)
     const [pageSize, setPageSize] = useState(10)
 
@@ -21,7 +21,8 @@ const SearchResult = (keyword: string) => {
                     setPageSize={setPageSize}
                     pageNumber={pageNumber}
                     setPageNumber={setPageNumber}
-                    keyword={keyword}
+                    keyword={"test content"}
+                    // keyword={keyword}
                 /></div>
         </div>
     )
