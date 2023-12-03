@@ -11,7 +11,6 @@ export async function POST(
     const threadID = params.threadID;
 
     try {
-        console.log("Before update")
         const newThread = await prisma.thread.update({
             where: {
                 id: threadID,
@@ -22,7 +21,6 @@ export async function POST(
                 },
             },
         })
-        console.log("Finished process")
         return Response.json({status: 200});
     } catch (error) {
         // Handle or log the error
