@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment } from "react";
+import React, {Fragment, useState} from "react";
 import logo from "app/img/logo.png";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
@@ -9,6 +9,7 @@ import { signOut } from "next-auth/react";
 import Link from "next/link";
 import Image from "next/image";
 import { Session } from "next-auth";
+import {useRouter} from "next/navigation";
 
 const userNavigation = [
   {
@@ -30,6 +31,19 @@ function classNames(...classes: string[]) {
 }
 
 export default function MainBar({ session }: { session: Session | null }) {
+  const router = useRouter();
+  const [keyword, setKeyword] = useState("");
+
+  const handleEnterKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      router.push(`/search?keyword=${encodeURIComponent(keyword)}`);
+    }
+  };
+
+  const handleEnterKeyword = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeyword(event.target.value);
+  };
+
   return (
     <Disclosure as="header" className="bg-white shadow">
       {({ open }) => (
@@ -55,16 +69,19 @@ export default function MainBar({ session }: { session: Session | null }) {
                   <div className="relative">
                     <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
                       <MagnifyingGlassIcon
-                        className="h-5 w-5 text-gray-400"
-                        aria-hidden="true"
+                          className="h-5 w-5 text-gray-400"
+                          aria-hidden="true"
                       />
                     </div>
                     <input
-                      id="search"
-                      name="search"
-                      className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                      placeholder="Search"
-                      type="search"
+                        id="search"
+                        name="search"
+                        value={keyword}
+                        onChange={handleEnterKeyword}
+                        className="block w-full rounded-md border-0 bg-white py-1.5 pl-10 pr-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        placeholder="Search"
+                        type="search"
+                        onKeyDown={handleEnterKeyPress}
                     />
                   </div>
                 </div>
