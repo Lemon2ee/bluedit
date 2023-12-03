@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Navbar from "@/app/home/NavBar/navbar";
 import ThreadContent from "@/app/thread/[threadID]/threadContent";
 import { Thread } from "@/types/thread";
+import Comments from "@/app/thread/[threadID]/comments";
 
 async function getThread(threadID: string): Promise<Thread> {
   const host = headers().get("host");
@@ -28,6 +29,7 @@ export default async function ThreadPage({
     <>
       <Navbar />
       <ThreadContent thread={thread} />
+      <Comments />
     </>
   );
 }
