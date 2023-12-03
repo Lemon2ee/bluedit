@@ -7,10 +7,12 @@ const prisma = new PrismaClient();
  * @param req request contains keyword, pageSize, pageRequested. pageRequested starts from 0.
  */
 export async function GET(req: Request) {
-    const body = await req.json();
-    console.log(`Received Search Request: ${body}`)
+    const url = new URL(req.url)
+    const keyword = url.searchParams.get('keyword') as string;
+    const pageSize = parseInt(url.searchParams.get('pageSize') as string);
+    const pageRequested = parseInt(url.searchParams.get('pageRequested') as string);
 
-    const {keyword, pageSize, pageRequested} = body
+    console.log(`Received Search Request: ${keyword} ${pageSize} ${pageRequested}`)
 
     const skip = pageRequested * pageSize
 

@@ -29,14 +29,12 @@ export default function PageSelector({pageSize, pageNumber, setPageNumber, keywo
             }
         })
             .then(response => {
-                console.log("HI")
                 if (!response.ok) {
                     throw new Error('Network response failed');
                 }
                 return response.json();
             })
             .then(data => {
-                console.log(`TEST - ${data.count}`)
                 setTotalPages(Math.ceil(data.count / pageSize));
             })
             .catch(error => {
