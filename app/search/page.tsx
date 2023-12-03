@@ -1,14 +1,14 @@
-"use client";
+import Navbar from "@/app/home/NavBar/navbar";
+import SearchAndPagination from "@/app/search/resultAndPage";
 
-import React from "react";
-import SearchResultList from "@/app/search/resultList";
+const SearchResult = () => {
 
-export default function SearchResult() {
-  return (
-    <div className={"flex justify-center flex-col"}>
-      <div className="row">
-        <SearchResultList />
-      </div>
-    </div>
-  );
+    return (
+        <div className={"flex justify-center flex-col"}>
+            <div className="row"><Navbar/></div>
+            <div className="row"><SearchAndPagination/></div>
+        </div>
+    );
 }
+
+export default SearchResult;
