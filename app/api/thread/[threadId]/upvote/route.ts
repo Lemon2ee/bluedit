@@ -1,30 +1,28 @@
-import {getToken} from "next-auth/jwt";
+
 import {NextRequest} from "next/server";
 import prisma from '@/lib/prisma';
 
-export async function POST(req: NextRequest) {
-    const body = await req.json();
-    const {title, content, published} = body;
-    const token = await getToken({ req });
-    const userID = token?.sub;
-
-    if (!title || !content) {
-        return Response.json({message: 'Unfinished thread, please try again'}, {status:400});
-    }
-
+export async function POST(
+    _req: NextRequest,
+                           {
+                               params,
+                           }: {
+                               params: { threadId: string};
+                           },) {
+    const threadId = params.threadId;
 
     try {
-        const newThread = await prisma.thread.create({
-            data: {
-                title: title,
-                content: content,
-                published: published,
-                author: {
-                    connect: { id: userID },
-                },
+        const newThread = await prisma.thread.update({
+            where: {
+                id: threadId,
             },
-        });
-        return Response.json(newThread);
+            data:{
+                upvote: {
+                    increment: 1,
+    },
+            },
+            })
+        return Response.json({status: 200});
     } catch (error) {
         // Handle or log the error
         return Response.json({message: 'Failed to create new thread'}, {status: 500});
