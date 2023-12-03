@@ -16,14 +16,15 @@ export default function SearchResultList({threads}: SearchResultListProps) {
                         {/*<img className="h-12 w-12 flex-none rounded-full bg-gray-50 mx-4" src={post.imageUrl} alt="" />*/}
                         <div className="min-w-0 flex-auto">
                             <p className="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
-                                <a href={"#"}>
+                                <a href={`/thread/${thread.id}`}>
                                     <span className="absolute inset-x-0 -top-px bottom-0" />
                                     {thread.title}
                                 </a>
                             </p>
-                            <p className="mt-1 flex text-xs leading-5 text-gray-500">
-                                {thread.content.substring(0, 50)}
-                            </p>
+                                <div
+                                    className="mt-1 flex text-xs leading-5 text-gray-500"
+                                    dangerouslySetInnerHTML={{ __html: thread.content.substring(0, 50).concat('</p>') }}
+                                />
                         </div>
                     </div>
                     <div className="flex items-center gap-x-4">
