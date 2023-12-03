@@ -5,6 +5,8 @@ import { Thread } from "@/types/thread";
 import Comments from "@/app/thread/[threadID]/comments";
 import prisma from "@/lib/prisma";
 import { Profile } from "@prisma/client";
+import {getServerSession} from "next-auth";
+import authOptions from "@/app/api/auth/[...nextauth]/nextAuthOptions";
 
 async function getThread(threadID: string): Promise<Thread> {
   const host = headers().get("host");
@@ -44,11 +46,13 @@ export default async function ThreadPage({
 }) {
   const thread = await getThread(params.threadID);
   const comments = await constructComments(thread);
+  const session = await getServerSession(authOptions);
+
   return (
     <>
       <Navbar />
       <ThreadContent thread={thread} />
-      <Comments thread={thread} commentsAuthorInfo={comments} />
+      <Comments thread={thread} commentsAuthorInfo={comments} session={session} />
     </>
   );
 }
