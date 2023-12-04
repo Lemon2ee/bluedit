@@ -25,7 +25,7 @@ export default function ThreadList({
           <p className="mt-2 text-lg leading-8 text-gray-600">
             {welcomeMessage}
           </p>
-          <div className="mt-3 space-y-3 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
+          <div className="mt-3 space-y-3 border-t border-gray-200 pt-10 sm:mt-3 sm:pt-3">
             {threads.map((thread) => (
               <article
                 key={thread.id}

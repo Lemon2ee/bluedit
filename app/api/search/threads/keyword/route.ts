@@ -12,8 +12,6 @@ export async function GET(req: Request) {
     const pageSize = parseInt(url.searchParams.get('pageSize') as string);
     const pageRequested = parseInt(url.searchParams.get('pageRequested') as string);
 
-    console.log(`Received Search Request: ${keyword} ${pageSize} ${pageRequested}`)
-
     const skip = pageRequested * pageSize
 
     const threads = await prisma.thread.findMany({
