@@ -1,6 +1,7 @@
 import Navbar from "@/app/home/NavBar/navbar";
 import ThreadList from "@/app/home/threadList";
 import prisma from "@/lib/prisma";
+import { ThreadWithProfile } from "@/types/thread";
 
 function getRandomMessage(): string {
   const messages: string[] = [
@@ -36,8 +37,7 @@ async function getAllThreads() {
 }
 
 export default async function Home() {
-  const threads = await getAllThreads();
-  console.log(typeof threads[0]);
+  const threads: ThreadWithProfile[] = await getAllThreads();
 
   return (
     <>

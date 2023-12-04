@@ -1,5 +1,4 @@
 import { DateTime } from "next-auth/providers/kakao";
-import { User } from "next-auth";
 
 export interface Thread {
   id: string;
@@ -19,6 +18,26 @@ export interface Comment {
   threadID: string;
 }
 
+type Role = "USER" | "ADMIN"; // Replace with your actual roles if different
+
+interface Profile {
+  id: string;
+  bio: string;
+  profilePicture: string;
+  bannerPicture: string;
+  displayName: string;
+  userId: string;
+}
+
+interface User {
+  id: string;
+  username: string;
+  password: string; // Consider security implications of exposing this field
+  role: Role;
+  image: string | null;
+  profile: Profile | null;
+}
+
 export interface ThreadWithProfile {
   id: string;
   createdAt: Date;
@@ -26,20 +45,6 @@ export interface ThreadWithProfile {
   content: string;
   published: boolean;
   authorId: string;
-  upvote: number;
-  author: {
-    id: string;
-    username: string;
-    password: string; // Consider omitting for security reasons
-    role: string;
-    image: string | null;
-    profile: {
-      id: string;
-      bio: string;
-      profilePicture: string;
-      bannerPicture: string;
-      displayName: string;
-      userId: string;
-    };
-  };
+  upvote: number | null;
+  author: User;
 }
