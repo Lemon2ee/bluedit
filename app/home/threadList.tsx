@@ -1,6 +1,7 @@
 "use client";
 
 import { ThreadWithProfile } from "@/types/thread";
+import { defaultAvatar } from "@/types/default";
 
 export default function ThreadList({
   welcomeMessage,
@@ -43,7 +44,7 @@ export default function ThreadList({
                 </div>
                 <div className="relative mt-8 flex items-center gap-x-4">
                   <img
-                    src={thread.author.profile.profilePicture}
+                    src={thread.author.profile?.profilePicture || defaultAvatar}
                     alt=""
                     className="h-10 w-10 rounded-full bg-gray-50"
                   />
@@ -51,10 +52,12 @@ export default function ThreadList({
                     <p className="font-semibold text-gray-900">
                       <a href={`/profile/${thread.author.id}`}>
                         <span className="absolute inset-0" />
-                        {thread.author.profile.displayName}
+                        {thread.author.profile?.displayName}
                       </a>
                     </p>
-                    <p className="text-gray-600">{thread.author.profile.bio}</p>
+                    <p className="text-gray-600">
+                      {thread.author.profile?.bio}
+                    </p>
                   </div>
                 </div>
               </article>
