@@ -5,6 +5,7 @@ import logo from "app/img/logo.png";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { errorToast } from "@/app/login/components";
+import { NextResponse } from "next/server";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ export default function RegisterPage() {
   const registerUser = async (e: React.MouseEvent) => {
     e.preventDefault();
     try {
-      const res = await fetch("/api/register", {
+      const res: Response = await fetch("/api/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -26,15 +27,16 @@ export default function RegisterPage() {
         body: JSON.stringify(data),
       });
       const json = await res.json();
-      if (json.message) {
+      if (!res.ok) {
         setErrorMessages(json.message);
         setShowErrorToast(true);
         return;
       }
       router.push("/login");
-    } catch (e) {
-      if (e instanceof Error) {
-        throw Error(e.message);
+      router.refresh();
+    } catch (error) {
+      if (error instanceof Error) {
+        throw Error(error.message);
       }
     }
   };
