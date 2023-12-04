@@ -4,6 +4,36 @@ import { getServerSession } from "next-auth";
 import authOptions from "@/app/api/auth/[...nextauth]/nextAuthOptions";
 import { $Enums } from ".prisma/client";
 import Role = $Enums.Role;
+import prisma from "@/lib/prisma";
+import ProfileCommentsList from "@/app/profile/[[...profileID]]/profileCommentsList";
+
+export interface CommentWithThreadInfo {
+  id: string;
+  content: string;
+  createdAt: Date;
+  authorId: string;
+  threadId: string;
+  thread: {
+    createdAt: Date;
+    title: string;
+  };
+}
+
+async function getUserComments(userID: string) {
+  return prisma.comment.findMany({
+    where: {
+      authorId: userID,
+    },
+    include: {
+      thread: {
+        select: {
+          createdAt: true,
+          title: true,
+        },
+      },
+    },
+  });
+}
 
 export default async function PublicProfile({
   params,
@@ -25,10 +55,14 @@ export default async function PublicProfile({
     editable = session.user.role === Role.ADMIN;
   }
 
+  const comments: CommentWithThreadInfo[] =
+    await getUserComments(profileUserID);
+
   return (
     <>
       <Navbar />
       <Header editable={editable} profileUserID={profileUserID} />
+      <ProfileCommentsList comments={comments} />
     </>
   );
 }
