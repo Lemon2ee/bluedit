@@ -23,6 +23,13 @@ export async function GET(req: Request) {
                 mode: 'insensitive',
             },
         },
+        include: {
+            author: {
+                include: {
+                    profile: true,
+                },
+            },
+        },
         skip: skip,
         take: pageSize,
     });
