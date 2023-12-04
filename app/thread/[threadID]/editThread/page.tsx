@@ -1,7 +1,7 @@
 'use client'
 import ThreadEdit from "@/app/thread/threadEditor";
-import {getThread} from "@/app/thread/[threadID]/page";
 import {useEffect, useState} from "react";
+
 interface UpdateThreadProps {
     title: string;
     content: string;
@@ -9,8 +9,8 @@ interface UpdateThreadProps {
 }
 
 export default function UpdateThread({
-    params,
-}: {
+                                         params,
+                                     }: {
     params: {
         threadID: string;
     };
@@ -28,8 +28,10 @@ export default function UpdateThread({
     return (
         <>
             <ThreadEdit mode="edit"
-                        initialData={{title: threadData && threadData.title || '', content: threadData && threadData.content || '',
-                            isPublic: threadData && threadData.isPublic || true, threadID: params.threadID}}/>
+                        initialData={{
+                            title: threadData && threadData.title || '', content: threadData && threadData.content || '',
+                            isPublic: threadData && threadData.isPublic || true, threadID: params.threadID
+                        }}/>
         </>
     );
 }
