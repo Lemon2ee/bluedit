@@ -6,21 +6,26 @@ import { defaultAvatar } from "@/types/default";
 export default function ThreadList({
   welcomeMessage,
   threads,
+  subWelcomeMessage
 }: {
   welcomeMessage: string;
   threads: ThreadWithProfile[];
+  subWelcomeMessage: string;
 }) {
+  console.log(threads[0])
   return (
     <div className="py-14 sm:py-22">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Welcome to Bluedit
-          </h2>
+          {subWelcomeMessage && (
+              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                {subWelcomeMessage}
+              </h2>
+          )}
           <p className="mt-2 text-lg leading-8 text-gray-600">
             {welcomeMessage}
           </p>
-          <div className="mt-10 space-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
+          <div className="mt-3 space-y-3 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16">
             {threads.map((thread) => (
               <article
                 key={thread.id}

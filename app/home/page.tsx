@@ -1,5 +1,5 @@
 import Navbar from "@/app/home/NavBar/navbar";
-import ThreadList from "@/app/home/threadList";
+import ThreadList from "@/app/common/threadList";
 import prisma from "@/lib/prisma";
 import { ThreadWithProfile } from "@/types/thread";
 
@@ -42,7 +42,7 @@ export default async function Home() {
   return (
     <>
       <Navbar />
-      <ThreadList welcomeMessage={getRandomMessage()} threads={threads} />
+      <ThreadList welcomeMessage={getRandomMessage()} threads={threads} subWelcomeMessage={"Welcome to Bluedit"} />
     </>
   );
 }
