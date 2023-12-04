@@ -8,7 +8,7 @@ import { Profile } from "@prisma/client";
 import {getServerSession} from "next-auth";
 import authOptions from "@/app/api/auth/[...nextauth]/nextAuthOptions";
 
-async function getThread(threadID: string): Promise<Thread> {
+export async function getThread(threadID: string): Promise<Thread> {
   const host = headers().get("host");
   const protocol = process?.env.NODE_ENV === "development" ? "http" : "https";
   const res = await fetch(`${protocol}://${host}/api/thread/${threadID}`, {
@@ -51,7 +51,7 @@ export default async function ThreadPage({
   return (
     <>
       <Navbar />
-      <ThreadContent thread={thread} />
+      <ThreadContent thread={thread} session={session}/>
       <Comments thread={thread} commentsAuthorInfo={comments} session={session} />
     </>
   );
