@@ -4,7 +4,7 @@ import NewComment from "@/app/thread/[threadID]/newComment";
 import UpvoteButton from "@/app/thread/[threadID]/upvote";
 import { Thread } from "@/types/thread";
 import { Profile } from "@prisma/client";
-import {Session} from "next-auth";
+import { Session } from "next-auth";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -12,7 +12,8 @@ function classNames(...classes: string[]) {
 
 export default function Comments({
   thread,
-  commentsAuthorInfo, session,
+  commentsAuthorInfo,
+  session,
 }: {
   thread: Thread;
   commentsAuthorInfo: Profile[];
