@@ -1,5 +1,5 @@
 "use client";
-import React, { useMemo, useState } from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import { Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { TagIcon } from "@heroicons/react/20/solid";
@@ -26,11 +26,18 @@ function classNames(...classes: string[]) {
 
 export default function ThreadEdit({ mode, initialData }: ThreadEditProps) {
   const router = useRouter();
-  const [isPublic, setisPublic] = useState(mode === 'edit' && initialData ? initialData.isPublic ? state[1] : state[0] : state[0]);
-  const [title, setTitle] = useState<string>(mode === 'edit' && initialData ? initialData.title : "");
-  const [content, setContent] = useState<string>(mode === 'edit' && initialData ? initialData.content : "");
+  const [isPublic, setisPublic] = useState(initialData ? initialData.isPublic ? state[1] : state[0] : state[0]);
+  const [title, setTitle] = useState<string>( initialData ? initialData.title : "");
+  const [content, setContent] = useState<string>(initialData ? initialData.content : "");
   const [showErrorToast, setShowErrorToast] = useState(false);
   const [errorMessages, setErrorMessages] = useState<string>("");
+  useEffect(() => {
+    if (initialData) {
+      setTitle(initialData.title);
+      setContent(initialData.content);
+      setisPublic(initialData.isPublic ? state[1] : state[0]);
+    }
+  }, [initialData]);
   const DynamicTextEditor = useMemo(() => {
     return dynamic(() => import("./textEditor"), {
       loading: () => <p>loading...</p>,

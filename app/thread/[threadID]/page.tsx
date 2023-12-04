@@ -1,6 +1,6 @@
 import { headers } from "next/headers";
 import Navbar from "@/app/home/NavBar/navbar";
-import ThreadContent from "@/app/thread/[threadID]/threadContent";
+import ThreadContent, {Author} from "@/app/thread/[threadID]/threadContent";
 import { Thread } from "@/types/thread";
 import Comments from "@/app/thread/[threadID]/comments";
 import prisma from "@/lib/prisma";
@@ -36,6 +36,21 @@ async function constructComments(thread: Thread): Promise<Profile[]> {
     },
   });
 }
+async function getAuthorProfile(userID: string): Promise<Author> {
+  const res =  await prisma.profile.findUnique({
+    where: {
+      userId: userID,
+    },
+    select: {
+      profilePicture: true,
+      displayName: true,
+    },
+  });
+  if(res === null){
+    throw new Error("This should never happen, unable to get author")
+  }
+  return res;
+}
 
 export default async function ThreadPage({
   params,
@@ -47,11 +62,11 @@ export default async function ThreadPage({
   const thread = await getThread(params.threadID);
   const comments = await constructComments(thread);
   const session = await getServerSession(authOptions);
-
+  const author: Author = await getAuthorProfile(thread.author.id);
   return (
     <>
       <Navbar />
-      <ThreadContent thread={thread} session={session}/>
+      <ThreadContent thread={thread} author={author} session={session}/>
       <Comments thread={thread} commentsAuthorInfo={comments} session={session} />
     </>
   );
