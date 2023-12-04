@@ -1,6 +1,9 @@
 "use client";
 
 import { Thread } from "@/types/thread";
+import React from "react";
+import {useRouter} from "next/navigation";
+import {Session} from "next-auth";
 
 function formatDateToYYYYMMDD(date: string) {
   const dateTime = new Date(date);
@@ -11,7 +14,11 @@ function formatDateToYYYYMMDD(date: string) {
   return `${year}-${month}-${day}`;
 }
 
-export default function ThreadContent({ thread }: { thread: Thread }) {
+export default function ThreadContent({ thread, session}: { thread: Thread; session: Session | null }) {
+    const router = useRouter();
+    const navigateToThread = () => {
+        router.push(`/thread/${thread.id}/editThread`);
+    };
   return (
     <div className="px-6 py-32 lg:px-8">
       <div className="mx-auto max-w-3xl text-base leading-7 text-gray-700">
@@ -27,6 +34,16 @@ export default function ThreadContent({ thread }: { thread: Thread }) {
           dangerouslySetInnerHTML={{ __html: thread.content }}
         />
       </div>
+      {session && session.user.id === thread.author.id ?
+      <button
+          onClick={navigateToThread}
+          className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      >
+        Edit post
+      </button> :
+          <></>
+      }
+
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function ThreadEdit({ mode, initialData }: ThreadEditProps) {
           });
           await handleResponse(res);
         } else if (mode === 'edit' && initialData) {
-          const res = await fetch(`/api/thread/${initialData.threadID}`, {
+          const res = await fetch(`/api/thread/${initialData.threadID}/update`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
@@ -75,8 +75,7 @@ export default function ThreadEdit({ mode, initialData }: ThreadEditProps) {
       setShowErrorToast(true);
       return;
     }
-
-    router.push("/thread");
+    router.push(`/thread/${json.id}`);
     };
   return (
     <>
@@ -160,7 +159,7 @@ export default function ThreadEdit({ mode, initialData }: ThreadEditProps) {
                 className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                 onClick={handleSubmit}
               >
-                Create
+                {mode}
               </button>
             </div>
           </div>

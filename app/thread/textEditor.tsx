@@ -66,6 +66,7 @@ const TextEditor: React.FC<TextEditorProps> = ({
         id="title"
         className="block w-full border-0 pt-2.5 text-lg font-medium placeholder:text-gray-400 focus:ring-0 focus:outline-none py-3"
         placeholder="Title"
+        value={title}
         onChange={(e) => setTitle(e.target.value)}
       />
 

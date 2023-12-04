@@ -1,22 +1,19 @@
 import ThreadEdit from "@/app/thread/threadEditor";
+import {getThread} from "@/app/thread/[threadID]/page";
 
-interface ThreadUpdateProps {
-    title: string;
-    content: string;
-    isPublic: boolean;
-}
 
-export default function UpdateThread({
-                                         params,
-                                     }: {
+
+export default async function UpdateThread({
+                                               params,
+                                           }: {
     params: {
         threadID: string;
     };
-}, {title, content, isPublic}: ThreadUpdateProps) {
-    const threadID = params.threadID;
+}) {
+    const thread= await getThread(params.threadID);
     return (
         <>
-            <ThreadEdit mode="edit" initialData={{title, content, isPublic, threadID}}/>
+            <ThreadEdit mode="edit" initialData={{title: thread.title, content: thread.content, isPublic:true, threadID: thread.id}}/>
         </>
     );
 }
