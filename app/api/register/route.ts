@@ -1,5 +1,6 @@
 import bcrypt from "bcrypt";
-import prisma from '@/lib/prisma';
+import prisma from "@/lib/prisma";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -54,5 +55,12 @@ export async function POST(req: Request) {
     );
   }
 
-  return Response.redirect("/");
+  return NextResponse.json(
+    {
+      message: "Account created",
+    },
+    {
+      status: 200,
+    },
+  );
 }
