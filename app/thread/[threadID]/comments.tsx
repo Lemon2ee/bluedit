@@ -36,6 +36,7 @@ export default function Comments({
                 className="flex space-x-4 text-sm text-gray-500"
               >
                 <div className="flex-none py-10">
+                  <a href={`/profile/${thread.author.id}`}>
                   <img
                     src={
                       commentsAuthorInfo.find(
@@ -46,6 +47,7 @@ export default function Comments({
                     alt=""
                     className="h-10 w-10 rounded-full bg-gray-100"
                   />
+                  </a>
                 </div>
                 <div
                   className={classNames(
@@ -54,10 +56,12 @@ export default function Comments({
                   )}
                 >
                   <h3 className="font-medium text-gray-900">
+                    <a href={`/profile/${thread.author.id}`}>
                     {commentsAuthorInfo.find(
                       (authorProfile) =>
                         authorProfile.userId == comment.authorId,
                     )?.displayName || ""}
+                    </a>
                   </h3>
 
                   <div
