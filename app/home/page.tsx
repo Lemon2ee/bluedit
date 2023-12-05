@@ -2,6 +2,7 @@ import Navbar from "@/app/home/NavBar/navbar";
 import ThreadList from "@/app/common/threadList";
 import prisma from "@/lib/prisma";
 import { ThreadWithProfile } from "@/types/thread";
+import { cookies } from "next/headers";
 
 function getRandomMessage(): string {
   const messages: string[] = [
@@ -24,8 +25,17 @@ function getRandomMessage(): string {
   return messages[randomIndex];
 }
 
-async function getAllThreads() {
+async function getAllThreads(
+  privatePost: boolean,
+): Promise<ThreadWithProfile[]> {
+  let whereCondition: { published?: boolean } = {};
+
+  if (!privatePost) {
+    whereCondition.published = true;
+  }
+
   return prisma.thread.findMany({
+    where: whereCondition,
     include: {
       author: {
         include: {
@@ -37,12 +47,20 @@ async function getAllThreads() {
 }
 
 export default async function Home() {
-  const threads: ThreadWithProfile[] = await getAllThreads();
+  const cookie = cookies();
+
+  const threads: ThreadWithProfile[] = await getAllThreads(
+    cookie.get("login")?.value === "true",
+  );
 
   return (
     <>
       <Navbar />
-      <ThreadList welcomeMessage={getRandomMessage()} threads={threads} subWelcomeMessage={"Welcome to Bluedit"} />
+      <ThreadList
+        welcomeMessage={getRandomMessage()}
+        threads={threads}
+        subWelcomeMessage={"Welcome to Bluedit"}
+      />
     </>
   );
 }
