@@ -8,7 +8,7 @@ interface UpdateThreadProps {
     isPublic: boolean;
 }
 
-export default function UpdateThread({params}: { params: { threadID: string } }) {
+export default function ExternalThread() {
     const [threadData, setThreadData] = useState<UpdateThreadProps>();
 
     useEffect(() => {
@@ -21,13 +21,11 @@ export default function UpdateThread({params}: { params: { threadID: string } })
     }, []);
     return (
         <>
-            <ThreadEdit mode="edit"
-                        initialData={{
-                            title: threadData && threadData.title || '',
-                            content: threadData && threadData.content || '',
-                            isPublic: threadData && threadData.isPublic || true,
-                            threadID: params.threadID
-                        }}/>
+            <ThreadEdit mode="create" initialData={{
+                title: threadData && threadData.title || '',
+                content: threadData && threadData.content || '',
+                isPublic: threadData && threadData.isPublic || true,
+            }}/>
         </>
     );
 }

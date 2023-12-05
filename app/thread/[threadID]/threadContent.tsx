@@ -4,7 +4,6 @@ import {Thread} from "@/types/thread";
 import React from "react";
 import {useRouter} from "next/navigation";
 import {Session} from "next-auth";
-import prisma from "@/lib/prisma";
 
 function formatDateToYYYYMMDD(date: string) {
     const dateTime = new Date(date);
