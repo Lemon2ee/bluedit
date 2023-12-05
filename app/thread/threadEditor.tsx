@@ -47,7 +47,9 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
             ssr: false,
         });
     }, []);
-    const handleSubmit = async (event: { preventDefault: () => void }) => {
+    const handleSubmit = async (event: {
+        preventDefault: () => void
+    }) => {
         event.preventDefault();
 
         const payload = {
@@ -73,11 +75,14 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
             }
         } catch (e) {
             if (e instanceof Error) {
-                throw Error(e.message);
+                setErrorMessages("Please log in!");
+                setShowErrorToast(true);
             }
         }
     };
-    const handleCancel = (e: { preventDefault: () => void; }) => {
+    const handleCancel = (e: {
+        preventDefault: () => void;
+    }) => {
         e.preventDefault();
         router.push(`/home`);
         router.refresh();
