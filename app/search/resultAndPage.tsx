@@ -5,7 +5,7 @@ import PageSelector from "@/app/search/pageSelector";
 import {useSearchParams} from "next/navigation";
 import {ThreadWithProfile} from "@/types/thread"
 import ThreadList from "@/app/common/threadList";
-import ExternalThreads from "@/app/search/ExternalThreads";
+import ExternalThreads from "@/app/search/externaSearch";
 import {GoogleSearchItem, GoogleSearchResponse} from "@/types/external";
 
 const PAGE_SIZE = 8;
