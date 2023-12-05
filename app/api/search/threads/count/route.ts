@@ -1,6 +1,4 @@
-import {PrismaClient} from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '@/lib/prisma';
 
 /**
  * Count the total number of threads matching the keyword search.
@@ -19,5 +17,5 @@ export async function GET(req: Request) {
             },
         },
     });
-    return Response.json({ count })
+    return Response.json({count})
 }
