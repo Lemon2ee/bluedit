@@ -14,6 +14,7 @@ interface ThreadEditProps {
         content: string;
         isPublic: boolean;
         threadID?: string;
+
     };
 }
 
@@ -76,6 +77,9 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
             }
         }
     };
+    const handleCancel = () => {
+        router.push(`/home`);
+    }
 
     const handleResponse = async (res: Response) => {
         const json = await res.json();
@@ -172,6 +176,15 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
                             >
                                 {mode}
                             </button>
+
+                            <button
+                                type="submit"
+                                className="inline-flex items-center rounded-md bg-indigo-600 mx-3 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                onClick={handleCancel}
+                            >
+                                Cancel
+                            </button>
+
                         </div>
                     </div>
                 </form>

@@ -60,7 +60,7 @@ export default function ThreadContent({thread, author, session}: { thread: Threa
                 />
             </div>
             {session && session.user.id === thread.author.id ?
-                <div className="flex-shrink-0 justify-end">
+                <div className="flex mx-auto  max-w-3xl  flex-shrink-0 justify-end">
                     <button
                         onClick={navigateToThread}
                         className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
