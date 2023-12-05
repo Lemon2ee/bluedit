@@ -11,11 +11,19 @@ export async function GET(req: Request) {
     // Use the keyword to count the matching threads
     const count = await prisma.thread.count({
         where: {
-            title: {
-                contains: keyword,
-                mode: 'insensitive',
-            },
+            AND: [
+                {
+                    title: {
+                        contains: keyword,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    published: true,
+                }
+            ]
         },
     });
+
     return Response.json({count})
 }

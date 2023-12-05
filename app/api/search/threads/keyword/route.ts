@@ -14,10 +14,17 @@ export async function GET(req: Request) {
 
     const threads = await prisma.thread.findMany({
         where: {
-            title: {
-                contains: keyword,
-                mode: 'insensitive',
-            },
+            AND: [
+                {
+                    title: {
+                        contains: keyword,
+                        mode: 'insensitive',
+                    },
+                },
+                {
+                    published: true,
+                }
+            ]
         },
         include: {
             author: {
