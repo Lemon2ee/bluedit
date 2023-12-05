@@ -45,14 +45,14 @@ export default async function PublicProfile({
   let profileUserID = "";
   let editable = false;
   const session = await getServerSession(authOptions);
-  if (!session?.user.id || !session.user.role) return null;
 
   if (params.profileID == undefined) {
+    if (!session?.user.id || !session.user.role) return null;
     profileUserID = session?.user?.id;
     editable = true;
   } else if (params.profileID.length == 1) {
     profileUserID = params.profileID[0];
-    editable = session.user.role === Role.ADMIN;
+    editable = session?.user.role === Role.ADMIN || false;
   }
 
   const comments: CommentWithThreadInfo[] =

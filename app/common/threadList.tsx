@@ -6,21 +6,20 @@ import { defaultAvatar } from "@/types/default";
 export default function ThreadList({
   welcomeMessage,
   threads,
-  subWelcomeMessage
+  subWelcomeMessage,
 }: {
   welcomeMessage: string;
   threads: ThreadWithProfile[];
   subWelcomeMessage: string;
 }) {
-  console.log(threads[0])
   return (
     <div className="py-14 sm:py-22">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl">
           {subWelcomeMessage && (
-              <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                {subWelcomeMessage}
-              </h2>
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              {subWelcomeMessage}
+            </h2>
           )}
           <p className="mt-2 text-lg leading-8 text-gray-600">
             {welcomeMessage}
