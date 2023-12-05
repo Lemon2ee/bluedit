@@ -77,8 +77,10 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
             }
         }
     };
-    const handleCancel = () => {
+    const handleCancel = (e: { preventDefault: () => void; }) => {
+        e.preventDefault();
         router.push(`/home`);
+        router.refresh();
     }
 
     const handleResponse = async (res: Response) => {
@@ -178,11 +180,10 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
                             </button>
 
                             <button
-                                type="submit"
                                 className="inline-flex items-center rounded-md bg-indigo-600 mx-3 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                                 onClick={handleCancel}
                             >
-                                Cancel
+                                cancel
                             </button>
 
                         </div>
