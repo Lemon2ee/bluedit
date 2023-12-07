@@ -1,5 +1,6 @@
 import { CommentWithThreadInfo } from "@/app/profile/[[...profileID]]/page";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/solid";
+import formatDate from "@/app/utils/formatter";
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
@@ -42,7 +43,7 @@ export default function ProfileCommentsList({
                         dateTime={comment.createdAt.toTimeString()}
                         className="flex-none py-0.5 text-xs leading-5 text-gray-500"
                       >
-                        {comment.createdAt.toTimeString()}
+                        {formatDate(comment.createdAt.toString())}
                       </time>
                     </div>
                     <p className="text-sm leading-6 text-gray-500">
