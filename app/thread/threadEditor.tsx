@@ -96,11 +96,12 @@ export default function ThreadEdit({mode, initialData}: ThreadEditProps) {
             return;
         }
         router.push(`/thread/${json.id}`);
+        router.refresh();
     };
     return (
         <>
             {showErrorToast && errorToast(errorMessages)}
-            <div className="max-w-2xl mx-auto">
+            <div className="max-w-2xl mx-auto mt-5">
                 <form action="#" className="relative">
                     <DynamicTextEditor
                         content={content}
