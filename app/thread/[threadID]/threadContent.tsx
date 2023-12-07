@@ -4,15 +4,8 @@ import {Thread} from "@/types/thread";
 import React from "react";
 import {useRouter} from "next/navigation";
 import {Session} from "next-auth";
+import formatDate from "@/app/utils/formatter";
 
-function formatDateToYYYYMMDD(date: string) {
-    const dateTime = new Date(date);
-    const year = dateTime.getFullYear();
-    const month = (dateTime.getMonth() + 1).toString().padStart(2, "0"); // getMonth() is zero-based
-    const day = dateTime.getDate().toString().padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
-}
 
 export interface Author {
     profilePicture: string,
@@ -48,7 +41,7 @@ export default function ThreadContent({thread, author, session}: { thread: Threa
                     </a>
                 </div>
                 <p className="text-base font-semibold leading-7 text-indigo-600">
-                    {formatDateToYYYYMMDD(thread.createdAt)}
+                    {formatDate(thread.createdAt)}
                 </p>
                 <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
                     {thread.title}
