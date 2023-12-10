@@ -1,10 +1,11 @@
 "use client";
 
 import {Thread} from "@/types/thread";
-import React from "react";
+import React, {useState} from "react";
 import {useRouter} from "next/navigation";
 import {Session} from "next-auth";
 import formatDate from "@/app/utils/formatter";
+import {errorToast} from "@/app/login/components";
 
 
 export interface Author {
@@ -12,7 +13,14 @@ export interface Author {
     displayName: string,
 }
 
-export default function ThreadContent({thread, author, session}: { thread: Thread; author: Author; session: Session | null }) {
+export default function ThreadContent({thread, author, session}: {
+    thread: Thread;
+    author: Author;
+    session: Session | null
+}) {
+
+    const [showErrorToast, setShowErrorToast] = useState(false);
+    const [errorMessages, setErrorMessages] = useState<string>("");
     const router = useRouter();
     const navigateToThread = () => {
         const threadData = {
@@ -22,6 +30,32 @@ export default function ThreadContent({thread, author, session}: { thread: Threa
         };
         sessionStorage.setItem('threadData', JSON.stringify(threadData));
         router.push(`/thread/${thread.id}/editThread`);
+    };
+    const handleDelete = async (event: {
+        preventDefault: () => void
+    }) => {
+        event.preventDefault();
+
+
+        try {
+            const res = await fetch(`/api/thread/${thread.id}/deleteThread`, {
+                method: "Delete",
+                headers: {"Content-Type": "application/json"},
+            });
+            const json = await res.json();
+            if (json.message) {
+                setErrorMessages(json.message);
+                setShowErrorToast(true);
+                return;
+            }
+            router.push(`/home`);
+            router.refresh();
+        } catch (e) {
+            if (e instanceof Error) {
+                setErrorMessages("Please log in!");
+                setShowErrorToast(true);
+            }
+        }
     };
     return (
         <div className=" px-6  py-32 lg:px-8">
@@ -61,6 +95,14 @@ export default function ThreadContent({thread, author, session}: { thread: Threa
 
                         Edit post
                     </button>
+                    <button
+                        onClick={handleDelete}
+                        className="inline-flex items-center rounded-md bg-indigo-600 mx-3 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                    >
+
+                        Delete post
+                    </button>
+                    {showErrorToast && errorToast(errorMessages)}
                 </div>
                 :
                 <></>
