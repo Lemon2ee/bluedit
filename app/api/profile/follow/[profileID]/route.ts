@@ -1,5 +1,6 @@
-import {NextRequest} from "next/server";
+import {NextRequest, NextResponse} from "next/server";
 import prisma from "@/lib/prisma";
+import {getToken} from "next-auth/jwt";
 
 export async function POST(
     req: NextRequest,
@@ -10,22 +11,43 @@ export async function POST(
     },
 ) {
     const targetProfileID = params.profileID;
-    const body = await req.json();
-    const {currentProfileID} = body;
+    const token = await getToken({req});
+    if (!token || !token.sub)
+        return NextResponse.json(
+            {
+                message: "User is not logged in",
+            },
+            {
+                status: 401,
+            },
+        );
+    const userID = token?.sub;
+
     try {
+        const currentUserProfile = await prisma.profile.findUnique({
+            where: {
+                userId: userID
+            }
+        })
+        if (!currentUserProfile) {
+            return Response.json(
+                {message: "No profile page found"},
+                {status: 404},
+            );
+        }
         const updatedFollower = await prisma.profile.update({
             where: {
-                id: targetProfileID, // The ID of the profile that is following someone
+                id: targetProfileID,
             },
             data: {
                 follower: {
-                    push: currentProfileID,
+                    push: currentUserProfile.id,
                 },
             },
         });
         const updatedFollowing = await prisma.profile.update({
             where: {
-                id: currentProfileID, // The ID of the profile that is following someone
+                userId: userID,
             },
             data: {
                 following: {
@@ -51,12 +73,25 @@ export async function DELETE(
     },
 ) {
     const targetProfileID = params.profileID;
-    const body = await req.json();
-    const {currentProfileID} = body;
+    const token = await getToken({req});
+    if (!token || !token.sub)
+        return NextResponse.json(
+            {
+                message: "User is not logged in",
+            },
+            {
+                status: 401,
+            },
+        );
+    const userID = token?.sub;
+
     try {
         const currentProfile = await prisma.profile.findUnique({
-            where: {id: currentProfileID},
-            select: {following: true},
+            where: {userId: userID},
+            select: {
+                id: true,
+                following: true
+            },
         });
 
         if (currentProfile && currentProfile.following) {
@@ -65,7 +100,7 @@ export async function DELETE(
 
             // Update the following array for the unfollower
             await prisma.profile.update({
-                where: {id: currentProfileID},
+                where: {userId: userID},
                 data: {following: updatedFollowing},
             });
         }
@@ -78,7 +113,7 @@ export async function DELETE(
 
         if (targetProfile && targetProfile.follower) {
             // Remove unfollowerId from the followers array
-            const updatedFollowers = targetProfile.follower.filter(id => id !== currentProfileID);
+            const updatedFollowers = targetProfile.follower.filter(id => id !== currentProfile?.id);
 
             // Update the followers array for the unfollowed user
             await prisma.profile.update({
