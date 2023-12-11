@@ -54,8 +54,6 @@ const TextEditor: React.FC<TextEditorProps> = ({
         "color",
         "clean",
     ];
-    console.log("text place")
-    console.log(content);
 
     return (
         <div
