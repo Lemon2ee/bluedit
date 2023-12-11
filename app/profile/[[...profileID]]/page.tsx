@@ -6,6 +6,8 @@ import { $Enums } from ".prisma/client";
 import Role = $Enums.Role;
 import prisma from "@/lib/prisma";
 import ProfileCommentsList from "@/app/profile/[[...profileID]]/profileCommentsList";
+import FollowSection from "@/app/profile/[[...profileID]]/followSection";
+import FollowButton from "@/app/profile/[[...profileID]]/followButton";
 
 export interface CommentWithThreadInfo {
   id: string;
@@ -62,6 +64,8 @@ export default async function PublicProfile({
     <>
       <Navbar />
       <Header editable={editable} profileUserID={profileUserID} />
+      <FollowButton />
+      <FollowSection profileUserID={profileUserID} />
       <ProfileCommentsList comments={comments} />
     </>
   );

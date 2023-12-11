@@ -45,6 +45,8 @@ export async function POST(req: Request) {
       profilePicture:
         "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg",
       displayName: username,
+      follower: [],
+      following: [],
     },
   });
 
