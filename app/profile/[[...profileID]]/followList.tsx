@@ -33,7 +33,9 @@ export default function FollowList({ contentList }: { contentList: string[] }) {
         <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4">
           <div className="w-56 shrink rounded-xl bg-white p-4 text-sm font-semibold leading-6 text-gray-900 shadow-lg ring-1 ring-gray-900/5">
             {contentList.map((name) => (
-              <span className="block p-2 hover:text-indigo-600">{name}</span>
+              <span key={name} className="block p-2 hover:text-indigo-600">
+                {name}
+              </span>
             ))}
           </div>
         </Popover.Panel>
