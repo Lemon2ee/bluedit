@@ -49,6 +49,8 @@ async function getAllThreads(
 export default async function Home() {
   const cookie = cookies();
 
+  console.log(cookie);
+
   const threads: ThreadWithProfile[] = await getAllThreads(
     cookie.get("login")?.value === "true",
   );
