@@ -53,6 +53,8 @@ export default async function Home() {
     cookie.get("login")?.value === "true",
   );
 
+  threads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
   return (
     <>
       <Navbar />
