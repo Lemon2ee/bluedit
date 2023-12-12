@@ -4,20 +4,17 @@ import { Fragment } from "react";
 import { Popover, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-const solutions = [
-  { name: "Analytics", href: "#" },
-  { name: "Engagement", href: "#" },
-  { name: "Security", href: "#" },
-  { name: "Integrations", href: "#" },
-  { name: "Automations", href: "#" },
-  { name: "Reports", href: "#" },
-];
-
-export default function FollowList({ contentList }: { contentList: string[] }) {
+export default function FollowList({
+  contentList,
+  menuName,
+}: {
+  contentList: string[];
+  menuName: string;
+}) {
   return (
     <Popover className="relative px-10">
       <Popover.Button className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-        <span>Solutions</span>
+        <span>{menuName}</span>
         <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
       </Popover.Button>
 

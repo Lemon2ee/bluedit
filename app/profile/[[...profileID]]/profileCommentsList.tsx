@@ -13,7 +13,7 @@ export default function ProfileCommentsList({
 }) {
   return (
     <>
-      <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8 py-28 sm:py-10 ">
+      <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:divide-y lg:divide-gray-200 lg:px-8 py-10 sm:py-8 ">
         <div className="relative flex h-16 justify-center">
           <ul role="list" className="space-y-6">
             {comments.map((comment, commentIdx) => (
