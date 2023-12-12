@@ -30,6 +30,8 @@ async function getAllThreads(
 ): Promise<ThreadWithProfile[]> {
   let whereCondition: { published?: boolean } = {};
 
+  console.log("Private post bool: " + privatePost);
+
   if (!privatePost) {
     whereCondition.published = true;
   }
