@@ -17,6 +17,7 @@ export interface CommentWithThreadInfo {
   authorId: string;
   threadId: string;
   thread: {
+    id: string;
     createdAt: Date;
     title: string;
   };
@@ -30,6 +31,7 @@ async function getUserComments(userID: string) {
     include: {
       thread: {
         select: {
+          id: true,
           createdAt: true,
           title: true,
         },
