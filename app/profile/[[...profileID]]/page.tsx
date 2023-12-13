@@ -6,6 +6,8 @@ import { $Enums } from ".prisma/client";
 import Role = $Enums.Role;
 import prisma from "@/lib/prisma";
 import ProfileCommentsList from "@/app/profile/[[...profileID]]/profileCommentsList";
+import FollowSection from "@/app/profile/[[...profileID]]/followSection";
+import FollowButton from "@/app/profile/[[...profileID]]/followButton";
 
 export interface CommentWithThreadInfo {
   id: string;
@@ -45,11 +47,13 @@ export default async function PublicProfile({
   let profileUserID = "";
   let editable = false;
   const session = await getServerSession(authOptions);
+  let isSelf = false;
 
   if (params.profileID == undefined) {
     if (!session?.user.id || !session.user.role) return null;
     profileUserID = session?.user?.id;
     editable = true;
+    isSelf = true;
   } else if (params.profileID.length == 1) {
     profileUserID = params.profileID[0];
     editable = session?.user.role === Role.ADMIN || false;
@@ -62,6 +66,8 @@ export default async function PublicProfile({
     <>
       <Navbar />
       <Header editable={editable} profileUserID={profileUserID} />
+      {!isSelf && <FollowButton />}
+      <FollowSection profileUserID={profileUserID} />
       <ProfileCommentsList comments={comments} />
     </>
   );

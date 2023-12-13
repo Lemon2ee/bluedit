@@ -30,6 +30,8 @@ async function getAllThreads(
 ): Promise<ThreadWithProfile[]> {
   let whereCondition: { published?: boolean } = {};
 
+  console.log("Private post bool: " + privatePost);
+
   if (!privatePost) {
     whereCondition.published = true;
   }
@@ -50,8 +52,11 @@ export default async function Home() {
   const cookie = cookies();
 
   const threads: ThreadWithProfile[] = await getAllThreads(
-    cookie.get("login")?.value === "true",
+    cookie.get("next-auth.session-token") !== undefined ||
+      cookie.get("__Secure-next-auth.session-token") !== undefined,
   );
+
+  threads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
 
   return (
     <>
