@@ -13,6 +13,7 @@ export default function ProfileForms() {
     profilePicture: "",
     bannerPicture: "",
     displayName: "",
+    phoneNumber: "",
   });
 
   const router = useRouter();
@@ -51,6 +52,7 @@ export default function ProfileForms() {
           profilePicture: data.profilePicture,
           bannerPicture: data.bannerPicture,
           displayName: data.displayName,
+          phoneNumber: data.phoneNumber || "",
         });
       });
   }, []);
@@ -281,17 +283,21 @@ export default function ProfileForms() {
 
                 <div className="sm:col-span-2">
                   <label
-                    htmlFor="postal-code"
+                    htmlFor="tel"
                     className="block text-sm font-medium leading-6 text-gray-900"
                   >
-                    SSN
+                    Phone Number
                   </label>
                   <div className="mt-2">
                     <input
                       type="text"
-                      name="postal-code"
-                      id="postal-code"
-                      autoComplete="postal-code"
+                      name="tel"
+                      id="tel"
+                      autoComplete="tel"
+                      value={profile.phoneNumber}
+                      onChange={(e) => {
+                        setProfile({ ...profile, phoneNumber: e.target.value });
+                      }}
                       className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -301,12 +307,12 @@ export default function ProfileForms() {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-x-6">
-            <button
-              type="button"
+            <a
+              href="/"
               className="text-sm font-semibold leading-6 text-gray-900"
             >
               Cancel
-            </button>
+            </a>
             <button
               type="submit"
               onClick={handleSubmit}

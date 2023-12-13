@@ -28,6 +28,7 @@ model Profile {
   userId         String   @unique @db.ObjectId
   following      String[] @db.ObjectId // Array of profile ID
   follower       String[] @db.ObjectId
+  phoneNumber    String?
 }
 
 model Thread {
