@@ -1,6 +1,11 @@
 import FollowList from "@/app/profile/[[...profileID]]/followList";
 import prisma from "@/lib/prisma";
 
+export type commentUser = {
+  displayName: string;
+  id: string;
+};
+
 async function getFollowStat(profileUserID: string) {
   return prisma.profile.findUnique({
     where: {
@@ -22,10 +27,14 @@ async function getDisplayNames(profileIds: string[]) {
     },
     select: {
       displayName: true,
+      userId: true, // Fetch the userId
     },
   });
 
-  return profiles.map((profile) => profile.displayName);
+  return profiles.map((profile) => ({
+    displayName: profile.displayName,
+    id: profile.userId, // Return the User ID instead of the Profile ID
+  }));
 }
 
 export default async function FollowSection({
