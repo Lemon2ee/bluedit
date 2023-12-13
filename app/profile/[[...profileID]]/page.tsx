@@ -8,6 +8,7 @@ import prisma from "@/lib/prisma";
 import ProfileCommentsList from "@/app/profile/[[...profileID]]/profileCommentsList";
 import FollowSection from "@/app/profile/[[...profileID]]/followSection";
 import FollowButton from "@/app/profile/[[...profileID]]/followButton";
+import ProfilePostList from "@/app/profile/[[...profileID]]/profilePostList";
 
 export interface CommentWithThreadInfo {
   id: string;
@@ -68,7 +69,14 @@ export default async function PublicProfile({
       <Header editable={editable} profileUserID={profileUserID} />
       {!isSelf && <FollowButton />}
       <FollowSection profileUserID={profileUserID} />
-      <ProfileCommentsList comments={comments} />
+      <div className="flex justify-between mx-auto max-w-7xl">
+        <div className="flex-grow">
+          <ProfileCommentsList comments={comments} />
+        </div>
+        <div className="flex-grow">
+          <ProfilePostList profileUserID={profileUserID} />
+        </div>
+      </div>
     </>
   );
 }
